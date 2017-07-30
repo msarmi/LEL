@@ -1,8 +1,0 @@
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\bin\Debug\netcoreapp1.1\LELApi.deps.json
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\bin\Debug\netcoreapp1.1\LELApi.runtimeconfig.json
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\bin\Debug\netcoreapp1.1\LELApi.runtimeconfig.dev.json
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\bin\Debug\netcoreapp1.1\LELApi.dll
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\bin\Debug\netcoreapp1.1\LELApi.pdb
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\obj\Debug\netcoreapp1.1\LELApi.AssemblyInfo.cs
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\obj\Debug\netcoreapp1.1\LELApi.dll
-c:\Users\JONATAN\Source\Repos\LEL\LELApi\obj\Debug\netcoreapp1.1\LELApi.pdb
