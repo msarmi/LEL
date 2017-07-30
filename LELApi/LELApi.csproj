@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="1.1.2"/>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3"/>
     <PackageReference Include="SapientGuardian.EntityFrameworkCore.MySql" Version="7.1.23"/>
-    <PackageReference Include="AutoMapper" Version="6.1.1"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1"/>
+     <!-- <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.0"/> -->
   </ItemGroup>
 </Project>
