@@ -7,10 +7,10 @@ namespace LELApi.Models
 {
     public class NotionExpression
     {
-		public long SymbolId { get; set; }
-		public Symbol Symbol { get; set; }
+        public long SymbolId { get; set; }
+        public Symbol Symbol { get; set; }
 
-		public long ExpressionId { get; set; }
-		public Expression Expression { get; set; }
+        public long ExpressionId { get; set; }
+        public Expression Expression { get; set; }
     }
 }

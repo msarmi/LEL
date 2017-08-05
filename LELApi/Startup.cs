@@ -33,7 +33,12 @@ namespace LELApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LELContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));            
-            
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+                                        {
+                                            builder.AllowAnyOrigin()
+                                                .AllowAnyMethod()
+                                                .AllowAnyHeader();
+                                        }));
             // Add framework services.
             services.AddMvc();            
         }
@@ -43,7 +48,7 @@ namespace LELApi
         {            
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            
+            app.UseCors("MyPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto

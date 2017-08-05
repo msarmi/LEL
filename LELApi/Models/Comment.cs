@@ -11,11 +11,6 @@ namespace LELApi.Models
 		public long Id { get; set; }
 		public string Content { get; set; }
 		public long AuthorId { get; set; }		
-		public virtual User Author { get; set; }
-		//public ICollection<Comment> Replies { get; set; }
-
-		//public Comment() {
-		//	Replies = new HashSet<Comment>();
-		//}
+		public virtual User Author { get; set; }		
 	}
 }
