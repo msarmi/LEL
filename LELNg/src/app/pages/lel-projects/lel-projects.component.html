@@ -1,0 +1,40 @@
+<section class="content">
+  <header class="content__title">
+    <h1>OMG! Look at all those LELs!</h1>
+  </header>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Available Projects</h2>
+      <small class="card-subtitle">Not bad, right? </small>
+    </div>
+
+    <div class="card-block">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Author #</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of this.lelProjects">
+            <th scope="row">{{project.id}}</th>            
+            <td>{{project.name}}</td>
+            <td>{{project.authorId}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">My LELs</h2>
+      <small class="card-subtitle">Mhm those objects doesn´t have format</small>
+    </div>
+    <div class="card-block">
+      <pre>{{ this.lelProjects | json }} </pre>
+    </div>
+  </div>
+</section>
