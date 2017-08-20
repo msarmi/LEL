@@ -1,0 +1,11 @@
+<nav class="mat-elevation-z6 app-navbar-component">
+  <md-toolbar color="primary">
+    <a md-button routerLink="." aria-disabled="false">Lexicon Extended Language</a>
+    <span class="navbar-spacer"></span>
+    <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon></button>
+  </md-toolbar>
+</nav>
+<md-menu #appMenu="mdMenu">
+  <button md-menu-item> Settings</button>
+  <button md-menu-item> Help</button>
+</md-menu>
