@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+
+@mixin footer-default-theme($theme) {
+  
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  
+  footer {        
+        height: 140px;
+        background-color: mat-color($primary);        
+        color: mat-color($foreground, text);
+    }
+}

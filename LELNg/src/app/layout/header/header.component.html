@@ -2,6 +2,7 @@
   <md-toolbar color="primary">
     <a md-button routerLink="." aria-disabled="false">Lexicon Extended Language</a>
     <span class="navbar-spacer"></span>
+    <button md-button [mdMenuTriggerFor]="themes"><md-icon>format_paint</md-icon></button>
     <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon></button>
   </md-toolbar>
 </nav>
@@ -9,3 +10,18 @@
   <button md-menu-item> Settings</button>
   <button md-menu-item> Help</button>
 </md-menu>
+<md-menu #themes="mdMenu">
+  <!-- <md-grid-list cols="2" rowHeight="100px">
+      <md-grid-tile
+          *ngFor="let theme of themes"
+          [colspan]="theme.cols"
+          [rowspan]="theme.rows"
+          [style.background]="theme.color">
+        {{theme.text}}
+      </md-grid-tile>
+    </md-grid-list> -->
+  <button md-menu-item (click)="themeClassChanged('default-theme')"> default theme</button>
+  <button md-menu-item (click)="themeClassChanged('my-theme')"> theme1</button>
+  <button md-menu-item (click)="themeClassChanged('m2app-dark')"> theme2</button>
+</md-menu>
+

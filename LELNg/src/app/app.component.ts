@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  constructor() { }
+  themeClass: string;
+  constructor() {
+    this.themeClass = 'default-theme mat-app-background';
+  }
+
+  updateTheme($event) {
+    this.themeClass = $event + ' mat-app-background mat-typography';
+  }
 }

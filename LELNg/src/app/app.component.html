@@ -8,8 +8,8 @@
 </div> -->
 
 
-<div class="app-box">
-    <app-header></app-header>
+<div [class]="this.themeClass">
+    <app-header (themeChanged)="updateTheme($event)"></app-header>
     <app-sidenav></app-sidenav>
     <!-- <router-outlet></router-outlet> -->
   </div>

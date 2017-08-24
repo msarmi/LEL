@@ -84,7 +84,8 @@
 }
 
 .app-viewer {
-    min-height: 100%;
+    /* min-height: 100%; */
+    
     font-weight: 400;
     padding: 20px 70px 50px;
     position: relative;
@@ -104,4 +105,5 @@ app-footer {
 .docs-component-viewer {
     margin: 0 auto;
     max-width: 940px;
+    min-height: calc(100vh - 262px);
 }

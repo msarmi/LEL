@@ -1,0 +1,48 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+@import 'app/layout/footer/footer.component.scss';
+
+.default-theme {
+    $primary: mat-palette($mat-blue);
+    $accent:  mat-palette($mat-cyan, A200, A100, A400);
+    
+    $warn:    mat-palette($mat-lime);
+    $default-theme: mat-light-theme($primary, $accent, $warn);
+    
+    @include angular-material-theme($default-theme);
+    @include footer-default-theme($default-theme);
+}
+
+// specify theme class eg: <body class="my-theme"> ... </body>
+.my-theme {  
+    $primary: mat-palette($mat-green);
+    $accent:  mat-palette($mat-amber, A200, A100, A400);
+    
+    // The warn palette is optional (defaults to red).
+    $warn:    mat-palette($mat-blue-grey);
+    
+    // Create the theme object (a Sass map containing all of the palettes).
+    $candy-app-theme: mat-light-theme($primary, $accent, $warn);
+    // use our theme with angular-material-theme mixin
+    @include angular-material-theme($candy-app-theme);
+    @include footer-default-theme($candy-app-theme);
+}
+
+.m2app-dark {
+  $dark-primary: mat-palette($mat-pink);
+  $dark-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+  $dark-warn:    mat-palette($mat-deep-orange);
+
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+  @include angular-material-theme($dark-theme);
+  @include footer-default-theme($dark-theme);
+}

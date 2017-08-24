@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routing } from './app.routing';
 import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdSidenavModule } from '@angular/material';
+import { MdGridListModule } from '@angular/material';
 import 'hammerjs';
 import { PagesModule } from './pages/pages.module';
 import { HeaderComponent } from './layout/header/header.component';
@@ -18,12 +19,13 @@ import { FooterComponent } from './layout/footer/footer.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MdButtonModule, 
-    MdCardModule, 
-    MdMenuModule, 
+    MdButtonModule,
+    MdCardModule,
+    MdMenuModule,
     MdToolbarModule,
     MdIconModule,
     MdSidenavModule,
+    MdGridListModule,
     HttpModule,
     routing,
     PagesModule
