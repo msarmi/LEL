@@ -1,0 +1,32 @@
+<md-card class="symbol-card" >
+  <md-card-header>
+    <md-card-title>Symbol data</md-card-title>
+    <md-card-subtitle></md-card-subtitle>    
+  </md-card-header>
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Author">
+    </md-input-container>
+    <div></div>
+    <md-input-container>
+      <input mdInput placeholder="Name">
+    </md-input-container>
+    <div></div>
+    <md-input-container>
+      <input mdInput placeholder="Synonyms">
+    </md-input-container>
+    <div></div>
+    <md-select placeholder="Category" name="food">
+      <md-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </md-option>
+    </md-select>
+   <!-- <p> Selected value: {{selectedValue}} </p> -->
+   <div></div>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>SAVE</button>
+    <button md-button>CANCEL</button>
+  </md-card-actions>
+</md-card>
