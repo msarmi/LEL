@@ -6,6 +6,7 @@ import { LelProjectsModule } from './lel-projects/lel-projects.module';
 
 import { SharedModule } from '../shared/shared.module';
 //import { MaterialModule } from '@angular/material';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   imports: [
@@ -13,9 +14,11 @@ import { SharedModule } from '../shared/shared.module';
     SymbolsModule,
     DashboardModule,
     LelProjectsModule,
-    SharedModule//,MdMenuModule
+    SharedModule,
+    UsersModule
   ],
   declarations: [],
   providers: []
 })
 export class PagesModule { }
+
