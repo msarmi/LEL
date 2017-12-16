@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routing } from './app.routing';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdSidenavModule } from '@angular/material';
-import { MdGridListModule } from '@angular/material';
 import 'hammerjs';
 import { PagesModule } from './pages/pages.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { MaterialModule } from './shared/modules/material.module';
+
+import { LelProjectsService } from './shared/services/lel-projects/lel-projects.service';
 
 @NgModule({
   declarations: [
@@ -19,18 +20,14 @@ import { FooterComponent } from './layout/footer/footer.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdCardModule,
-    MdMenuModule,
-    MdToolbarModule,
-    MdIconModule,
-    MdSidenavModule,
-    MdGridListModule,
+    MaterialModule,
     HttpModule,
     routing,
     PagesModule
   ],
-  providers: [],
+  providers: [
+    LelProjectsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

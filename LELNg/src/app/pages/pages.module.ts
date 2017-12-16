@@ -3,13 +3,19 @@ import { CommonModule } from '@angular/common';
 import { SymbolsModule } from './symbols/symbols.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LelProjectsModule } from './lel-projects/lel-projects.module';
+
+import { SharedModule } from '../shared/shared.module';
+//import { MaterialModule } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
     SymbolsModule,
     DashboardModule,
-    LelProjectsModule
+    LelProjectsModule,
+    SharedModule//,MdMenuModule
   ],
-  declarations: []
+  declarations: [],
+  providers: []
 })
 export class PagesModule { }

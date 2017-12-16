@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Http} from '@angular/http';
+
+import {MdPaginator, MdSort} from '@angular/material';
+import { LELProjectsDataSource } from '../../shared/datasources/index';
+import { LELProject } from '../../shared/models/index';
+import { LelProjectsService } from '../../shared/services/lel-projects/lel-projects.service';
 
 @Component({
   selector: 'app-lel-projects',
@@ -6,10 +12,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lel-projects.component.css']
 })
 export class LelProjectsComponent implements OnInit {
+  displayedColumns = ['id', 'name', 'authorId'];
+  dataSource: LELProjectsDataSource | null;
 
-  constructor() { }
+  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MdSort) sort: MdSort;
+
+  constructor(private lelProjectsService: LelProjectsService) {}
 
   ngOnInit() {
+    this.dataSource = new LELProjectsDataSource(this.lelProjectsService, this.paginator, this.sort);
   }
-
 }

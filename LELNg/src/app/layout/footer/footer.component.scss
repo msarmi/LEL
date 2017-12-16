@@ -4,7 +4,7 @@
 @mixin footer-default-theme($theme) {
   
   $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
+  /*$accent: map-get($theme, accent);*/
   $foreground: map-get($theme, foreground);
   
   footer {        
