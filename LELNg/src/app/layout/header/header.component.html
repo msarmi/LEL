@@ -1,27 +1,27 @@
 <nav class="mat-elevation-z6 app-navbar-component">
-  <md-toolbar color="primary">
-    <a md-button routerLink="." aria-disabled="false">Lexicon Extended Language</a>
+  <mat-toolbar color="primary">
+    <a mat-button routerLink="." aria-disabled="false">Lexicon Extended Language</a>
     <span class="navbar-spacer"></span>
-    <button md-button [mdMenuTriggerFor]="themes"><md-icon>format_paint</md-icon></button>
-    <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon></button>
-  </md-toolbar>
+    <button mat-button [matMenuTriggerFor]="themes"><mat-icon>format_paint</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>menu</mat-icon></button>
+  </mat-toolbar>
 </nav>
-<md-menu #appMenu="mdMenu">
-  <button md-menu-item> Settings</button>
-  <button md-menu-item> Help</button>
-</md-menu>
-<md-menu #themes="mdMenu">
-  <!-- <md-grid-list cols="2" rowHeight="100px">
-      <md-grid-tile
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item> Settings</button>
+  <button mat-menu-item> Help</button>
+</mat-menu>
+<mat-menu #themes="matMenu">
+  <!-- <mat-grid-list cols="2" rowHeight="100px">
+      <mat-grid-tile
           *ngFor="let theme of themes"
           [colspan]="theme.cols"
           [rowspan]="theme.rows"
           [style.background]="theme.color">
         {{theme.text}}
-      </md-grid-tile>
-    </md-grid-list> -->
-  <button md-menu-item (click)="themeClassChanged('default-theme')"> default theme</button>
-  <button md-menu-item (click)="themeClassChanged('my-theme')"> theme1</button>
-  <button md-menu-item (click)="themeClassChanged('m2app-dark')"> theme2</button>
-</md-menu>
+      </mat-grid-tile>
+    </mat-grid-list> -->
+  <button mat-menu-item (click)="themeClassChanged('default-theme')"> default theme</button>
+  <button mat-menu-item (click)="themeClassChanged('my-theme')"> theme1</button>
+  <button mat-menu-item (click)="themeClassChanged('m2app-dark')"> theme2</button>
+</mat-menu>
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {MdPaginator, MdSort} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import { LELProjectsDataSource } from '../../shared/datasources/index';
 import { LELProject } from '../../shared/models/index';
 import { LelProjectsService } from '../../shared/services/lel-projects/lel-projects.service';
@@ -15,8 +15,8 @@ export class LelProjectsComponent implements OnInit {
   displayedColumns = ['id', 'name', 'authorId'];
   dataSource: LELProjectsDataSource | null;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private lelProjectsService: LelProjectsService) {}
 

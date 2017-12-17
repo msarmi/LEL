@@ -1,36 +1,36 @@
 
       <div class="example-container mat-elevation-z8">
     <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults">
-      <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>      
+      <mat-progress-spinner *ngIf="dataSource.isLoadingResults"></mat-progress-spinner>      
     </div>
 
-    <md-table #table [dataSource]="dataSource" class="example-table" mdSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
+    <mat-table #table [dataSource]="dataSource" class="example-table" matSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
 
       <!--- Note that these columns can be defined in any order.
        The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Number Column -->
-      <ng-container mdColumnDef="id">
-        <md-header-cell *mdHeaderCellDef>#</md-header-cell>
-        <md-cell *mdCellDef="let row">{{ row.id }}</md-cell>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
       </ng-container>
 
       <!-- Title Column -->
-      <ng-container mdColumnDef="name">
-        <md-header-cell *mdHeaderCellDef>Name</md-header-cell>
-        <md-cell *mdCellDef="let row">{{ row.name }}</md-cell>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
 
       <!-- State Column -->
-      <ng-container mdColumnDef="authorId">
-        <md-header-cell *mdHeaderCellDef>Author</md-header-cell>
-        <md-cell *mdCellDef="let row">{{ row.authorId }}</md-cell>
+      <ng-container matColumnDef="authorId">
+        <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.authorId }}</mat-cell>
       </ng-container>
 
-      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-    </md-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
-    <md-paginator [length]="dataSource.resultsLength" [pageSize]="30">
-    </md-paginator>
+    <mat-paginator [length]="dataSource.resultsLength" [pageSize]="30">
+    </mat-paginator>
     </div>
