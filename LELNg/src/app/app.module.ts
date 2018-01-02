@@ -12,6 +12,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { MaterialModule } from './shared/modules/material.module';
 
 import { LelProjectsService } from './shared/services/lel-projects/lel-projects.service';
+import { LelEditorComponent } from './pages/lel-projects/lel-editor/lel-editor.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LelProjectsService } from './shared/services/lel-projects/lel-projects.
     routing,
     PagesModule
   ],
+  entryComponents: [LelEditorComponent],
   providers: [
     LelProjectsService
   ],
