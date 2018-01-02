@@ -40,13 +40,13 @@ namespace LELApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public virtual IActionResult Update(long id, [FromBody] TEntity item)
+        public virtual IActionResult Update(long id, [FromBody] TEntity entity)
         {
-            if (item == null || !((IEntity<TId>)item).Id.Equals(id))
+            if (entity == null || !((IEntity<TId>)entity).Id.Equals(id))
             {
                 return BadRequest();
             }
-
+            this.Map(entity);
             var dbEntity = EntityCollection.FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
             
             if (dbEntity == null)
@@ -54,7 +54,7 @@ namespace LELApi.Controllers
                 return NotFound();
             }
 
-            _context.Entry(dbEntity).CurrentValues.SetValues(item);
+            _context.Entry(dbEntity).CurrentValues.SetValues(entity);
             _context.SaveChanges();
             return new NoContentResult();
         }
@@ -76,6 +76,10 @@ namespace LELApi.Controllers
             _context.SaveChanges();
 
             return CreatedAtRoute("GetEntity", new { id = ((IEntity<TId>)item).Id }, item);
+        }
+
+        public virtual void Map(TEntity entity){
+            
         }
     }
 }

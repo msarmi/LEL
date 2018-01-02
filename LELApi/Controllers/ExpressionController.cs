@@ -13,6 +13,6 @@ namespace LELApi.Controllers
     public class ExpressionController : GenericApiController<Expression, long>
     {
         public ExpressionController(LELContext context) : base(context) { }
-        protected override DbSet<Expression> EntityCollection { get { return this._context.Expressions; } }        
+        protected override DbSet<Expression> EntityCollection { get { return this._context.Expression; } }        
     }
 }

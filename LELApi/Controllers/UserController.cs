@@ -13,6 +13,6 @@ namespace LELApi.Controllers
     public class UserController : GenericApiController<User, long>
     {
         public UserController(LELContext context) : base(context) { }
-        protected override DbSet<User> EntityCollection { get { return this._context.Users; } }        
+        protected override DbSet<User> EntityCollection { get { return this._context.User; } }        
     }
 }

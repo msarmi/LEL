@@ -13,6 +13,12 @@ namespace LELApi.Controllers
     public class SymbolController : GenericApiController<Symbol, long>
     {
         public SymbolController(LELContext context) : base(context) { }
-        protected override DbSet<Symbol> EntityCollection { get { return this._context.Symbols; } }        
+        protected override DbSet<Symbol> EntityCollection { get { return this._context.Symbol; } }       
+
+        [HttpGet]
+        public override IEnumerable<Symbol> Get()
+        {
+            return EntityCollection.ToList();
+        }
     }
 }

@@ -13,6 +13,6 @@ namespace LELApi.Controllers
     public class RoleController : GenericApiController<Role, long>
     {
         public RoleController(LELContext context) : base(context) { }
-        protected override DbSet<Role> EntityCollection { get { return this._context.Roles; } }        
+        protected override DbSet<Role> EntityCollection { get { return this._context.Role; } }        
     }
 }

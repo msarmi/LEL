@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LELApi.DAL
 {
-    public class LELContext : DbContext
+	public class LELContext : DbContext
     {		
 		public LELContext(DbContextOptions<LELContext> options)
 		  :base(options)
@@ -20,13 +20,13 @@ namespace LELApi.DAL
 			
 		}
 
-		public DbSet<LELProject> LELProjects { get; set; }
-		public DbSet<Symbol> Symbols { get; set; }		
-		public DbSet<User> Users { get; set; }		
-		public DbSet<Synonym> Synonyms { get; set; }
-		public DbSet<Expression> Expressions { get; set; }		
-		public DbSet<Comment> Comments { get; set; }
-		public DbSet<Role> Roles { get; set; }
+		public DbSet<LELProject> LELProject { get; set; }
+		public DbSet<Symbol> Symbol { get; set; }		
+		public DbSet<User> User { get; set; }		
+		public DbSet<Synonym> Synonym { get; set; }
+		public DbSet<Expression> Expression { get; set; }		
+		public DbSet<Comment> Comment { get; set; }
+		public DbSet<Role> Role { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{			

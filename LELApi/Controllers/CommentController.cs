@@ -13,7 +13,7 @@ namespace LELApi.Controllers
     public class CommentController : GenericApiController<Comment, long>
     {
         public CommentController(LELContext context) : base(context) { }
-        protected override DbSet<Comment> EntityCollection { get { return this._context.Comments; } }
+        protected override DbSet<Comment> EntityCollection { get { return this._context.Comment; } }
 
         // [HttpGet]
         // public override IEnumerable<Comment> Get()
