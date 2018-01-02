@@ -15,6 +15,14 @@ export class LelProjectsService {
     return this.http.get(this.lelProjectsUrl)
                     .map(response => response.json() as LELProject[]);
   }
+
+  save(lelProject: LELProject) {
+    return this.http.post(this.lelProjectsUrl, { entity : lelProject });
+  }
+
+  remove(lelProject: LELProject) {
+    // ToDo
+  }
 }
 
 export interface LELProjectsApi {

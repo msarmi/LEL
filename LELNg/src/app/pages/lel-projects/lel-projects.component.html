@@ -27,10 +27,25 @@
         <mat-cell *matCellDef="let row">{{ row.authorId }}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="editAction">
+        <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+        <mat-cell *matCellDef="let row"><button mat-button mat-primary color="primary" (click)="openEditDialog(row)" ><mat-icon>edit</mat-icon></button></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deleteAction">
+        <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+        <mat-cell *matCellDef="let row"><button mat-button mat-primary color="primary" (click)="removeLelProject(row)" ><mat-icon>remove</mat-icon></button></mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
     <mat-paginator [length]="dataSource.resultsLength" [pageSize]="30">
     </mat-paginator>
+
+    <div>
+    <button mat-button mat-primary color="primary" (click)="openCreateDialog()" >New</button>
     </div>
+    
+    </div>   
