@@ -1,9 +1,9 @@
-import { User } from './user';
+import { User } from './index';
 import { LELProject } from './';
 
 export class LELProjectAdmin {
-    LELProjectId: number;
-    LELProject: LELProject;
-    AdminId: number;
-    Admin: User;
+    lELProjectId: number;
+    lELProject: LELProject;
+    adminId: number;
+    admin: User;
 }

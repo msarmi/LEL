@@ -1,0 +1,21 @@
+.flex-container {
+  display: flex;
+  /* flex-direction: column; */
+  /* width: 940px; */
+  position: relative;
+}
+.auto-height {
+  height: auto;
+}
+.spacer {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+.symbol-toolbar {
+  background:transparent;
+  padding: 0px;
+}
+.symbol-card {
+  margin-right: 10px;
+}

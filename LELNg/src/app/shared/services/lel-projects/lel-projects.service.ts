@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { LELProject } from '../../models';
+import { LELProject, Symbol } from '../../models';
 import { LELPROJECTS } from './mock-lel-projects';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class LelProjectsService {
   private lelProjectsUrl = environment.apiUrl + 'lelproject';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getLelProjects(sort: string, order: string, page: number): Observable<LELProject[]> {
-    return this.http.get(this.lelProjectsUrl)
-                    .map(response => response.json() as LELProject[]);
+    return this.http.get<LELProject[]>(this.lelProjectsUrl);
+  }
+
+  getLelProject(id: number): Observable<LELProject> {
+    return this.http.get<LELProject>(this.lelProjectsUrl + `/${id}`);
+  }
+
+  getLelProjectSymbols(id: number): Observable<Symbol[]> {
+    return this.http.get<Symbol[]>(this.lelProjectsUrl + `/${id}/symbols`);
   }
 
   save(lelProject: LELProject) {

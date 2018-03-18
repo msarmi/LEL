@@ -46,3 +46,9 @@
   @include angular-material-theme($dark-theme);
   @include footer-default-theme($dark-theme);
 }
+
+.mat-dialog-container {
+    overflow: hidden !important;
+    border-radius: 5px !important;
+    padding: 5px !important;
+  }

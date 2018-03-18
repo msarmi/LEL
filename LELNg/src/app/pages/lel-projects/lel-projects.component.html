@@ -1,51 +1,67 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults">
+    <mat-progress-spinner *ngIf="dataSource.isLoadingResults"></mat-progress-spinner>
+  </div>
 
-      <div class="example-container mat-elevation-z8">
-    <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults">
-      <mat-progress-spinner *ngIf="dataSource.isLoadingResults"></mat-progress-spinner>      
-    </div>
+  <mat-table #table [dataSource]="dataSource" class="example-table" matSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
 
-    <mat-table #table [dataSource]="dataSource" class="example-table" matSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
-
-      <!--- Note that these columns can be defined in any order.
+    <!--- Note that these columns can be defined in any order.
        The actual rendered columns are set as a property on the row definition" -->
 
-      <!-- Number Column -->
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
-      </ng-container>
+    <!-- Number Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+    </ng-container>
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-      </ng-container>
+    <!-- Title Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    </ng-container>
 
-      <!-- State Column -->
-      <ng-container matColumnDef="authorId">
-        <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.authorId }}</mat-cell>
-      </ng-container>
+    <!-- State Column -->
+    <ng-container matColumnDef="authorId">
+      <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.authorId }}</mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="editAction">
-        <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-        <mat-cell *matCellDef="let row"><button mat-button mat-primary color="primary" (click)="openEditDialog(row)" ><mat-icon>edit</mat-icon></button></mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="view">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">        
+        <a mat-icon-button mat-primary color="primary" [routerLink]="['/lelproject', row.id]">
+          <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-search"></mat-icon>
+        </a>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="deleteAction">
-        <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
-        <mat-cell *matCellDef="let row"><button mat-button mat-primary color="primary" (click)="removeLelProject(row)" ><mat-icon>remove</mat-icon></button></mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button mat-primary color="primary" (click)="openEditDialog(row)">
+            <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button mat-primary color="primary" (click)="removeLelProject(row)">
+            <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-    <mat-paginator [length]="dataSource.resultsLength" [pageSize]="30">
-    </mat-paginator>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
-    <div>
-    <button mat-button mat-primary color="primary" (click)="openCreateDialog()" >New</button>
-    </div>
-    
-    </div>   
+  <mat-paginator [length]="dataSource.resultsLength" [pageSize]="30">
+  </mat-paginator>
+
+  <div>
+    <button mat-button mat-primary color="primary" (click)="openCreateDialog()">New</button>
+  </div>
+
+</div>

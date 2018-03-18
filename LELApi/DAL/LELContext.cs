@@ -24,14 +24,13 @@ namespace LELApi.DAL
 		public DbSet<Symbol> Symbol { get; set; }		
 		public DbSet<User> User { get; set; }		
 		public DbSet<Synonym> Synonym { get; set; }
-		public DbSet<Expression> Expression { get; set; }		
 		public DbSet<Comment> Comment { get; set; }
 		public DbSet<Role> Role { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{			
-			modelBuilder.Entity<NotionExpression>()
-				.HasKey(t => new { t.SymbolId, t.ExpressionId });
+			//modelBuilder.Entity<NotionExpression>()
+			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
 			
 			/*
 			modelBuilder.Entity<NotionExpression>()
@@ -44,8 +43,8 @@ namespace LELApi.DAL
 				.WithMany(t => t.NotionSymbols)
 				.HasForeignKey(pt => pt.ExpressionId);
 			*/
-			modelBuilder.Entity<ActionExpression>()
-				.HasKey(t => new { t.SymbolId, t.ExpressionId });
+			//modelBuilder.Entity<ActionExpression>()
+			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
 			/*
 			modelBuilder.Entity<ActionExpression>()
 				.HasOne(pt => pt.Symbol)
@@ -57,8 +56,8 @@ namespace LELApi.DAL
 				.WithMany(t => t.ActionSymbols)
 				.HasForeignKey(pt => pt.ExpressionId);
 			*/
-			modelBuilder.Entity<ExpressionSymbol>()
-				.HasKey(t => new { t.SymbolId, t.ExpressionId });
+			//modelBuilder.Entity<ExpressionSymbol>()
+			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
 			/*
 			modelBuilder.Entity<ExpressionSymbol>()
 				.HasOne(pt => pt.Expression)

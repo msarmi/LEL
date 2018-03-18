@@ -1,11 +1,11 @@
-import { LELProjectAdmin } from './lel-project-admin';
-import { User } from './user';
+import { LELProjectAdmin } from './index';
+import { User } from './index';
 
 export class LELProject {
-    Id: number;
-    Name: string;
-    AuthorId: number;
-    Author: User;
-    Admins: LELProjectAdmin[];
-    Symbols: Symbol[];
+    id: number;
+    name: string;
+    authorId: number;
+    author: User;
+    admins: LELProjectAdmin[];
+    symbols: Symbol[];
 }

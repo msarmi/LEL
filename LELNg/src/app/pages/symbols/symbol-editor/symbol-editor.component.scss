@@ -1,0 +1,23 @@
+mat-dialog-content {
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.mat-dialog-actions:last-child {
+  margin-bottom: 0;
+}
+
+.form {
+    // min-width: 500px;
+    //max-width: 500px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .list-icon{
+    margin-left: -16px;
+  }

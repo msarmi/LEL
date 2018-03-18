@@ -1,0 +1,11 @@
+.flex-container {
+    display: flex;
+    /* flex-direction: column; */
+    /* width: 940px; */
+    position: relative;
+  }
+
+.flex-container>mat-card {
+    width: 150px;
+    margin: 10px;
+}

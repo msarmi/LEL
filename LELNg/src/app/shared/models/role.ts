@@ -1,4 +1,4 @@
 export class Role {
-    Id: string;
-    Description: string;
+    id: string;
+    description: string;
 }

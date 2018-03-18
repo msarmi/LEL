@@ -9,13 +9,18 @@ namespace LELApi.Models
 {
     public class Symbol : IEntity<long>
     {
+		public Symbol(){
+			Synonyms = new List<Synonym>();
+			Notions = new List<Notion>();
+			BehaviouralResponses = new List<BehaviouralResponse>();
+		}
 		public long Id { get; set; }
 		public string Name { get; set; }				
 		public long AuthorId { get; set;}		
 		public virtual User Author { get; set; }
 		//public virtual Category Category { get; set; }
 
-    	public int UserId { get; set; }
+    	//public int UserId { get; set; }
  
 		[Column("Category")]
 		public string CategoryString
@@ -35,10 +40,11 @@ namespace LELApi.Models
 		public Category Category { get; set; }
 
 		public long LELProjectId { get; set; }
+
 		public virtual LELProject LELProject { get; set; }
 		public virtual ICollection<Synonym> Synonyms { get; set; }
-		public virtual ICollection<NotionExpression> Notions { get; set; } 
-		public virtual ICollection<ActionExpression> Actions { get; set; }
+		public virtual ICollection<Notion> Notions { get; set; } 
+		public virtual ICollection<BehaviouralResponse> BehaviouralResponses { get; set; }
 				
 	// 	public Symbol merge(Symbol anotherSymbol)
 	// 	{

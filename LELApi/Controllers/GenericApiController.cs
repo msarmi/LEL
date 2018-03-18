@@ -9,77 +9,75 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LELApi.Controllers
 {
-    [Route("api/[controller]")]
     public class GenericApiController<TEntity, TId> : Controller
     where TEntity : class
     {
         protected readonly LELContext _context;
 
-        protected virtual DbSet<TEntity> EntityCollection { get; }
+        //protected virtual DbSet<TEntity> EntityCollection { get; }
 
         public GenericApiController(LELContext context)
         {
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("api/[controller]")]
         public virtual IEnumerable<TEntity> Get()
         {
-            return EntityCollection.ToList();
+            return _context.Set<TEntity>().ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("api/[controller]/{id}")]
         public virtual IActionResult Get(TId id)
         {
-            var item = EntityCollection.FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
-            if (item == null)
+            var entity = _context.Set<TEntity>().FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
+            if (entity == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+            return new ObjectResult(entity);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("api/[controller]/{id}")]
         public virtual IActionResult Update(long id, [FromBody] TEntity entity)
         {
             if (entity == null || !((IEntity<TId>)entity).Id.Equals(id))
             {
                 return BadRequest();
             }
-            this.Map(entity);
-            var dbEntity = EntityCollection.FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
             
-            if (dbEntity == null)
-            {
-                return NotFound();
-            }
+            TEntity dbEntityMapped = this.MapOnUpdate(entity);
 
-            _context.Entry(dbEntity).CurrentValues.SetValues(entity);
+            _context.Update(dbEntityMapped);
             _context.SaveChanges();
-            return new NoContentResult();
+            return new ObjectResult(dbEntityMapped);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("api/[controller]/{id}")]
         public virtual void Delete(int id)
         {
         }
 
-        [HttpPost]
-        public virtual IActionResult Create([FromBody] TEntity item)
+        [HttpPost("api/[controller]")]
+        public virtual IActionResult Create([FromBody] TEntity entity)
         {
-            if (item == null)
+            if (entity == null)
             {
                 return BadRequest();
             }
-
-            EntityCollection.Add(item);
+            this.MapOnCreate(entity);            
+            _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetEntity", new { id = ((IEntity<TId>)item).Id }, item);
+            return new ObjectResult(entity);
         }
 
-        public virtual void Map(TEntity entity){
+        public virtual void MapOnCreate(TEntity entity){
             
+        }
+
+        public virtual TEntity MapOnUpdate(TEntity entityWithNewValues){
+            return entityWithNewValues;
         }
     }
 }

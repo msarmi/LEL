@@ -9,26 +9,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LELApi.Controllers
 {
-    [Route("api/[controller]")]
     public class LELProjectController : GenericApiController<LELProject, long>
     {
-        public LELProjectController(LELContext context) : base(context) { }
-        protected override DbSet<LELProject> EntityCollection { get { return this._context.LELProject; } }       
+        public LELProjectController(LELContext context) : base(context) { }        
 
-        [Route("api/lelproject/{id:long}/symbols")]
-        [HttpGet("{id}")]
+        [Route("api/[controller]/{id}/symbols")]        
         public IEnumerable<Symbol> GetLELProjectSymbols(long id) {
-            var project = this._context.LELProject.FirstOrDefault(aProject => aProject.Id == id);
+            var project = this._context.Set<LELProject>().Include(aProject => aProject.Symbols).FirstOrDefault(aProject => aProject.Id == id);
             if (project != null) {
-                return project.Symbols.ToList();
+                return project.Symbols;
             }
-            return new List<Symbol>();
+            return null;
         }
 
-        public override void Map(LELProject entity){
+        /*public override void Map(LELProject entity){
             if (entity.AuthorId > 0){
-                entity.Author = this._context.User.FirstOrDefault(user => user.Id == entity.AuthorId);
+                entity.Author = this._context.Set<User>().FirstOrDefault(user => user.Id == entity.AuthorId);
             }
-        }
+        }*/
     }
 }

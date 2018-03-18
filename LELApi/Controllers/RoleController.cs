@@ -9,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LELApi.Controllers
 {
-    [Route("api/[controller]")]
     public class RoleController : GenericApiController<Role, long>
     {
-        public RoleController(LELContext context) : base(context) { }
-        protected override DbSet<Role> EntityCollection { get { return this._context.Role; } }        
+        public RoleController(LELContext context) : base(context) { }        
     }
 }

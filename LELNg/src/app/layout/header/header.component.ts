@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay/typings/overlay-container';
 
 @Component({
   selector: 'app-header',

@@ -1,8 +1,8 @@
-import { User } from './user';
+import { User } from './index';
 
 export class Comment {
-    Id: number;
-    Content: string;
-    AuthorId: number;
-    Author: User;
+    id: number;
+    content: string;
+    authorId: number;
+    author: User;
 }

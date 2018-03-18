@@ -9,16 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LELApi.Controllers
 {
-    [Route("api/[controller]")]
     public class CommentController : GenericApiController<Comment, long>
     {
-        public CommentController(LELContext context) : base(context) { }
-        protected override DbSet<Comment> EntityCollection { get { return this._context.Comment; } }
-
-        // [HttpGet]
-        // public override IEnumerable<Comment> Get()
-        // {
-        //     return this._context.Comments.Include(c => c.Author).ToList();
-        // }
+        public CommentController(LELContext context) : base(context) { }        
     }
 }

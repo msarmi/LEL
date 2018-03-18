@@ -5,13 +5,20 @@ import { LelProjectsComponent } from './lel-projects.component';
 import { MaterialModule } from '../../shared/modules/material.module';
 import { LelEditorComponent } from './lel-editor/lel-editor.component';
 import { FormsModule } from '@angular/forms';
+import { LelViewComponent } from './lel-view/lel-view.component';
+import { LelProjectsRoutingModule } from './lel-projects-routing.module';
+import { SymbolsModule } from '../symbols/symbols.module';
+import { SymbolEditorComponent } from '../symbols/symbol-editor/symbol-editor.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    SymbolsModule,
+    LelProjectsRoutingModule
   ],
-  declarations: [LelProjectsComponent, LelEditorComponent]
+  entryComponents: [SymbolEditorComponent],
+  declarations: [LelProjectsComponent, LelEditorComponent, LelViewComponent]
 })
 export class LelProjectsModule { }

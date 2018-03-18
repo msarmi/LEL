@@ -5,7 +5,6 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { LelProjectsModule } from './lel-projects/lel-projects.module';
 
 import { SharedModule } from '../shared/shared.module';
-//import { MaterialModule } from '@angular/material';
 import { UsersModule } from './users/users.module';
 
 @NgModule({

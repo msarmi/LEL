@@ -1,11 +1,11 @@
 import { LELProject } from '../../models';
 
 export const LELPROJECTS: LELProject[] = [
- { Id: 1, Name: 'Mr. Nice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 2, Name: 'Mr. Twice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 3, Name: 'Mr. Vice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 4, Name: 'Mr. Rice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 5, Name: 'Mr. Dice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 6, Name: 'Mr. Slice', Admins: [], Author: null, AuthorId: 0, Symbols: [] },
- { Id: 7, Name: 'Mr. Mice', Admins: [], Author: null, AuthorId: 0, Symbols: [] }
+ { id: 1, name: 'Mr. Nice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 2, name: 'Mr. Twice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 3, name: 'Mr. Vice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 4, name: 'Mr. Rice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 5, name: 'Mr. Dice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 6, name: 'Mr. Slice', admins: [], author: null, authorId: 0, symbols: [] },
+ { id: 7, name: 'Mr. Mice', admins: [], author: null, authorId: 0, symbols: [] }
 ];

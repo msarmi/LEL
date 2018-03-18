@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
+//import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routing } from './app.routing';
@@ -13,6 +14,8 @@ import { MaterialModule } from './shared/modules/material.module';
 
 import { LelProjectsService } from './shared/services/lel-projects/lel-projects.service';
 import { LelEditorComponent } from './pages/lel-projects/lel-editor/lel-editor.component';
+import { MatIconRegistry } from '@angular/material';
+import { SymbolsService } from './shared/services/symbols/symbols.service';
 
 @NgModule({
   declarations: [
@@ -21,15 +24,19 @@ import { LelEditorComponent } from './pages/lel-projects/lel-editor/lel-editor.c
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule,
-    HttpModule,
-    routing,
-    PagesModule
+    PagesModule,
+    routing
   ],
   entryComponents: [LelEditorComponent],
   providers: [
-    LelProjectsService
+    LelProjectsService, MatIconRegistry, SymbolsService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(public matIconRegistry: MatIconRegistry) {
+    matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+   }
+}
