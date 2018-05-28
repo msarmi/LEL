@@ -9,6 +9,7 @@
 @include mat-core();
 
 @import 'app/layout/footer/footer.component.scss';
+@import 'app/pages/login/login.component.scss';
 
 .default-theme {
     $primary: mat-palette($mat-blue);
@@ -19,6 +20,7 @@
     
     @include angular-material-theme($default-theme);
     @include footer-default-theme($default-theme);
+    @include login-default-theme($default-theme);
 }
 
 // specify theme class eg: <body class="my-theme"> ... </body>
@@ -34,6 +36,7 @@
     // use our theme with angular-material-theme mixin
     @include angular-material-theme($candy-app-theme);
     @include footer-default-theme($candy-app-theme);
+    @include login-default-theme($candy-app-theme);
 }
 
 .m2app-dark {
@@ -45,6 +48,7 @@
 
   @include angular-material-theme($dark-theme);
   @include footer-default-theme($dark-theme);
+  @include login-default-theme($dark-theme);
 }
 
 .mat-dialog-container {

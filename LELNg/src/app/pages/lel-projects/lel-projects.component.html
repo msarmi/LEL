@@ -1,9 +1,9 @@
-<div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults">
+<div class="container mat-elevation-z8">
+  <div class="loading-shade" *ngIf="dataSource.isLoadingResults">
     <mat-progress-spinner *ngIf="dataSource.isLoadingResults"></mat-progress-spinner>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" class="example-table" matSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
+  <mat-table #table [dataSource]="dataSource" class="table" matSort mdSortActive="created_at" mdSortDisableClear mdSortDirection="asc">
 
     <!--- Note that these columns can be defined in any order.
        The actual rendered columns are set as a property on the row definition" -->

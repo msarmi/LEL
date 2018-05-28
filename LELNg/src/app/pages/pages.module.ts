@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SymbolsModule } from './symbols/symbols.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LelProjectsModule } from './lel-projects/lel-projects.module';
 
 import { SharedModule } from '../shared/shared.module';
 import { UsersModule } from './users/users.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MaterialModule } from '../shared/modules/material.module';
 
 @NgModule({
   imports: [
@@ -14,9 +19,12 @@ import { UsersModule } from './users/users.module';
     DashboardModule,
     LelProjectsModule,
     SharedModule,
-    UsersModule
+    UsersModule,
+    MaterialModule,
+    FormsModule,
+    RouterModule
   ],
-  declarations: [],
+  declarations: [LoginComponent, RegisterComponent],
   providers: []
 })
 export class PagesModule { }

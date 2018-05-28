@@ -31,7 +31,7 @@
 
         <mat-nav-list dense>
           <mat-list-item *ngFor="let notion of symbol.notions">
-            <a mat-icon-button mat-primary color="primary" class="list-icon" (keyup.enter)="removeNotion(notion)">
+            <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeNotion(notion)">
               <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
             </a>
             {{ notion.expression }}
@@ -51,7 +51,7 @@
           </mat-expansion-panel-header>
           <mat-nav-list dense>
             <mat-list-item *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
-              <a mat-icon-button mat-primary color="primary" class="list-icon" (keyup.enter)="removeBehaviouralResponse()">
+              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeBehaviouralResponse(behaviouralResponse)">
                 <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
               </a>
               {{ behaviouralResponse.expression }}

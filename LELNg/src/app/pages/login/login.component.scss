@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+
+
+@mixin login-default-theme($theme) {
+  
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    /*$accent: map-get($theme, accent);*/
+    $foreground: map-get($theme, foreground);
+
+    .row {
+        flex-grow: 1;
+        height: 100%;
+    }
+
+    .row-top {        
+        display: flex;
+        background-color: mat-color($primary);        
+        color: mat-color($foreground, text);
+        justify-content: center;
+    }
+
+    .row-bottom {              
+        color: mat-color($foreground, text);
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        margin-top: 25vh;
+    }
+
+    .card {
+        height: 50vh;
+        width: 500px;
+        background-color: aliceblue;
+    }
+
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .full-width {
+        width: 100%;
+      }
+}
+

@@ -6,7 +6,7 @@ import { MaterialModule } from '../../shared/modules/material.module';
 import { LelEditorComponent } from './lel-editor/lel-editor.component';
 import { FormsModule } from '@angular/forms';
 import { LelViewComponent } from './lel-view/lel-view.component';
-import { LelProjectsRoutingModule } from './lel-projects-routing.module';
+// import { LelProjectsRoutingModule } from './lel-projects-routing.module';
 import { SymbolsModule } from '../symbols/symbols.module';
 import { SymbolEditorComponent } from '../symbols/symbol-editor/symbol-editor.component';
 
@@ -16,7 +16,9 @@ import { SymbolEditorComponent } from '../symbols/symbol-editor/symbol-editor.co
     MaterialModule,
     FormsModule,
     SymbolsModule,
-    LelProjectsRoutingModule
+    RouterModule
+    // ,
+    // LelProjectsRoutingModule
   ],
   entryComponents: [SymbolEditorComponent],
   declarations: [LelProjectsComponent, LelEditorComponent, LelViewComponent]

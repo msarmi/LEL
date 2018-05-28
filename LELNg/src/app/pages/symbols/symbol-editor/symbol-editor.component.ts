@@ -113,12 +113,14 @@ export class SymbolEditorComponent implements OnInit {
     }
   }
 
-  removeBehaviouralResponse(behaviouralResponse: BehaviouralResponse): void {
+  removeBehaviouralResponse(behaviouralResponse: BehaviouralResponse): boolean {
     const index = this.symbol.behaviouralResponses.indexOf(behaviouralResponse);
 
     if (index >= 0) {
       this.symbol.behaviouralResponses.splice(index, 1);
     }
+    // to prevent bubbleing
+    return false;
   }
 
   getBehaviouralResponsesDescription(): string {

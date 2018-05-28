@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using LELApi.DAL;
 using LELApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LELApi.Controllers
 {
+    [Authorize]
     public class GenericApiController<TEntity, TId> : Controller
     where TEntity : class
     {
         protected readonly LELContext _context;
-
-        //protected virtual DbSet<TEntity> EntityCollection { get; }
 
         public GenericApiController(LELContext context)
         {

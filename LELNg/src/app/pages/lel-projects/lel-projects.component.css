@@ -1,4 +1,4 @@
-.example-container {
+.container {
   display: flex;
   flex-direction: column;
   max-height: 500px;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.example-header {
+.header {
   min-height: 64px;
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@
   font-size: 20px;
 }
 
-.example-table {
+.table {
   overflow: auto;
   min-height: 300px;
 }
@@ -36,7 +36,7 @@
   max-width: 124px;
 }
 
-.example-loading-shade {
+.loading-shade {
   position: absolute;
   top: 0;
   left: 0;
@@ -49,7 +49,7 @@
   justify-content: center;
 }
 
-.example-rate-limit-reached {
+.rate-limit-reached {
   color: #980000;
   max-width: 360px;
   text-align: center;
