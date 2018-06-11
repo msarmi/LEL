@@ -10,21 +10,23 @@
 
 @import 'app/layout/footer/footer.component.scss';
 @import 'app/pages/login/login.component.scss';
+@import 'app/pages/register/register.component.scss';
 
-.default-theme {
+.light-blue {
     $primary: mat-palette($mat-blue);
     $accent:  mat-palette($mat-cyan, A200, A100, A400);
     
     $warn:    mat-palette($mat-lime);
-    $default-theme: mat-light-theme($primary, $accent, $warn);
+    $light-blue: mat-light-theme($primary, $accent, $warn);
     
-    @include angular-material-theme($default-theme);
-    @include footer-default-theme($default-theme);
-    @include login-default-theme($default-theme);
+    @include angular-material-theme($light-blue);
+    @include footer-theme($light-blue);
+    @include login-theme($light-blue);
+    @include register-theme($light-blue);
 }
 
 // specify theme class eg: <body class="my-theme"> ... </body>
-.my-theme {  
+.light-green {  
     $primary: mat-palette($mat-green);
     $accent:  mat-palette($mat-amber, A200, A100, A400);
     
@@ -32,23 +34,25 @@
     $warn:    mat-palette($mat-blue-grey);
     
     // Create the theme object (a Sass map containing all of the palettes).
-    $candy-app-theme: mat-light-theme($primary, $accent, $warn);
+    $light-green: mat-light-theme($primary, $accent, $warn);
     // use our theme with angular-material-theme mixin
-    @include angular-material-theme($candy-app-theme);
-    @include footer-default-theme($candy-app-theme);
-    @include login-default-theme($candy-app-theme);
+    @include angular-material-theme($light-green);
+    @include footer-theme($light-green);
+    @include login-theme($light-green);
+    @include register-theme($light-green);
 }
 
-.m2app-dark {
-  $dark-primary: mat-palette($mat-pink);
-  $dark-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
-  $dark-warn:    mat-palette($mat-deep-orange);
+.pink-dark {
+    $dark-primary: mat-palette($mat-pink);
+    $dark-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+    $dark-warn:    mat-palette($mat-deep-orange);
 
-  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+    $pink-dark: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-  @include angular-material-theme($dark-theme);
-  @include footer-default-theme($dark-theme);
-  @include login-default-theme($dark-theme);
+    @include angular-material-theme($pink-dark);
+    @include footer-theme($pink-dark);
+    @include login-theme($pink-dark);
+    @include register-theme($pink-dark);
 }
 
 .mat-dialog-container {

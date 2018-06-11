@@ -16,6 +16,8 @@ import { LelEditorComponent } from './pages/lel-projects/lel-editor/lel-editor.c
 import { MatIconRegistry } from '@angular/material';
 import { SymbolsService } from './shared/services/symbols/symbols.service';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CustomHttpInterceptor } from './shared/interceptors/custom-http-interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,11 @@ import { AuthGuard } from './shared/guards/auth.guard';
   ],
   entryComponents: [LelEditorComponent],
   providers: [
-    LelProjectsService, MatIconRegistry, SymbolsService, AuthGuard
+    LelProjectsService, MatIconRegistry, SymbolsService, AuthGuard,
+    {  provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

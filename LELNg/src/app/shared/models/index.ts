@@ -8,3 +8,4 @@ export * from './role';
 export * from './symbol';
 export * from './synonym';
 export * from './user';
+export * from './register-user';

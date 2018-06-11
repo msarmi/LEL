@@ -13,6 +13,7 @@ namespace LELApi.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public Role Role { get; set; }
+        public string Email { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }        
         [NotMapped]
         public virtual string Password { get; set; }

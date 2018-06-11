@@ -5,7 +5,7 @@ import { SymbolsService } from '../../../shared/services/symbols/symbols.service
 import { Observable } from 'rxjs/Observable';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { KeysPipe } from '../../../shared/pipes/KeysPipe';
+import { KeysPipe } from '../../../shared/pipes/keys-pipe';
 
 @Component({
   selector: 'app-symbol-editor',

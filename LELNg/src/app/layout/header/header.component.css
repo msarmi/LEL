@@ -4,6 +4,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    box-align: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -16,7 +17,27 @@
 }
 
 .navbar-spacer {
+    box-flex: 1;
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
 };
+
+
+.odd {
+    left: 0px; 
+    width: calc(((50% - 0.5px) * 1) + 0px); 
+    margin-top: 0px; 
+    padding-top: calc(((50% - 0.5px) * 1) + 0px);
+}
+
+.even {
+    left: calc(((50% - 0.5px) + 1px) * 1); 
+    width: calc(((50% - 0.5px) * 1) + 0px); 
+    margin-top: 0px; 
+    /* padding-top: calc(((50% - 0.5px) * 1) + 0px); */
+}
+
+.menu-content {
+    padding: 8px;
+}

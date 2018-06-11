@@ -1,3 +1,45 @@
-<p>
-  register works!
-</p>
+<div [class]="this.themeClass">
+  <div class="container-box">
+    <div class="row row-top">
+      <div class="container mat-elevation-z8">
+        <mat-card class="card">
+          <mat-card-title>Register</mat-card-title>
+          <mat-card-content>
+            <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="full-width">
+                <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" #username="ngModel" required>
+                <mat-error *ngIf="f.submitted && !username.valid">Username is required</mat-error>
+              </mat-form-field>
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !password.valid }" class="full-width">
+                <input type="password" matInput placeholder="Password" name="password" [(ngModel)]="user.password" #password="ngModel" required>
+                <mat-error *ngIf="f.submitted && !password.valid">Password is required</mat-error>
+              </mat-form-field>
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !repeatpassword.valid }" class="full-width">
+                <input type="password" matInput placeholder="Repeat Password" name="repeatpassword" [(ngModel)]="repeatPassword" #repeatpassword="ngModel"
+                  required>
+                <mat-error *ngIf="f.submitted && !repeatpassword.valid">Please repeat your password</mat-error>
+              </mat-form-field>
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !email.valid }" class="full-width">
+                <input type="text" matInput placeholder="Email" name="email" [(ngModel)]="user.email" #email="ngModel" required>
+                <mat-error *ngIf="f.submitted && !email.valid">Email is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !name.valid }" class="full-width">
+                <input matInput placeholder="Firstname" [(ngModel)]="user.name" name="name" #name="ngModel">
+              </mat-form-field>
+              <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }" class="full-width">
+                <input matInput placeholder="Lastname" [(ngModel)]="user.lastname" name="lastname" #lastname="ngModel">
+              </mat-form-field>
+
+
+              <button mat-button [disabled]="loading" mat-primary color="primary" (click)="register()">Create Account</button>
+              <a mat-button mat-primary [disabled]="loading" [routerLink]="['/login']" color="primary">Go back to login</a>
+
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row row-bottom"></div>
+  </div>
+</div>

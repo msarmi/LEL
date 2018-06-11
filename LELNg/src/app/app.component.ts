@@ -8,14 +8,14 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 
 export class AppComponent {
-  themeClass: string;
-  constructor(private overlayContainer: OverlayContainer) {
-    this.themeClass = 'default-theme mat-app-background';
-    this.overlayContainer.getContainerElement().className = 'default-theme cdk-overlay-container';
-  }
+  // themeClass: string;
+  // constructor(private overlayContainer: OverlayContainer) {
+  //   this.themeClass = 'default-theme mat-app-background';
+  //   this.overlayContainer.getContainerElement().className = 'default-theme cdk-overlay-container';
+  // }
 
-  updateTheme($event) {
-    this.themeClass = $event + ' mat-app-background mat-typography';
-    this.overlayContainer.getContainerElement().className = $event + ' cdk-overlay-container';
-  }
+  // updateTheme($event) {
+  //   this.themeClass = $event + ' mat-app-background mat-typography';
+  //   this.overlayContainer.getContainerElement().className = $event + ' cdk-overlay-container';
+  // }
 }

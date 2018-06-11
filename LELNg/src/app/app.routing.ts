@@ -27,5 +27,4 @@ const ROUTES: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
-export const routing = RouterModule.forRoot(ROUTES,
-    { enableTracing: true });
+export const routing = RouterModule.forRoot(ROUTES/*,    { enableTracing: true }*/);

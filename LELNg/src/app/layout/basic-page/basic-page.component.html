@@ -1,2 +1,4 @@
-<app-header (themeChanged)="updateTheme($event)"></app-header>
-<app-sidenav></app-sidenav>
+<div [class]="this.themeClass">
+    <app-header (themeChanged)="updateTheme($event)"></app-header>
+    <app-sidenav></app-sidenav>
+</div>

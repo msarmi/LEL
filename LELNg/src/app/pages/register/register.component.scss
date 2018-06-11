@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 
-@mixin login-theme($theme) {
+@mixin register-theme($theme) {
   
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);

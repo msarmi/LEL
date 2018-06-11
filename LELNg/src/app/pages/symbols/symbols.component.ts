@@ -13,6 +13,8 @@ import { Symbol } from '../../shared/models/index';
 export class SymbolsComponent implements OnInit {
 
   symbols: Symbol[];
+  openedEditor: boolean[];
+  currentEditor: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -22,7 +24,10 @@ export class SymbolsComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.lelProjectsService.getLelProjectSymbols(+id).subscribe(
-      result => this.symbols = result);
+      (result) => {
+        this.symbols = result;
+        this.openedEditor = this.symbols.map(() => false);
+      });
   }
 
   openSymbolEditor(symbol: Symbol = new Symbol(), mode: string = 'new'): void {
@@ -31,8 +36,6 @@ export class SymbolsComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(SymbolEditorComponent, {
-      // width: '550px',
-      // height: '700px',
       data: { symbolId: symbol.id , mode: mode }
     });
 
@@ -51,6 +54,27 @@ export class SymbolsComponent implements OnInit {
         // si estuvo todo bien hago alguna cosa para informar el cambio.
       }
     });
+  }
+
+  viewSymbol(symbolIndex: number): void {
+    if (symbolIndex >= 0 && symbolIndex !== this.currentEditor) {
+      if (this.currentEditor) {
+        this.openedEditor[this.currentEditor] = false;
+      }
+      this.currentEditor = symbolIndex;
+      this.openedEditor[this.currentEditor] = true;
+    }
+  }
+
+  isSymbolDetailVisible(symbolIndex: number): boolean {
+    if (symbolIndex >= 0 && this.openedEditor && this.openedEditor.length > 0) {
+      return this.openedEditor[symbolIndex];
+    }
+    return false;
+  }
+
+  closeEditor(): void {
+    this.currentEditor = null;
   }
 
 }
