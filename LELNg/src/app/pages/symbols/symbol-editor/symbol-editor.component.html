@@ -1,47 +1,70 @@
-<mat-dialog-content>
-  <form class="form" *ngIf="symbol; let symbol; else loading">
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Name" name="name" [(ngModel)]="symbol.name">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-select placeholder="Category" [(value)]="symbol.category">
-        <mat-option *ngFor="let item of categories | keys; let i = index" [value]="i">
-          {{item.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let synonym of symbol.synonyms" [selectable]="true" [color]="primary" [removable]="true" (remove)="removeSynonym(synonym)">
-          {{synonym.name}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Synonyms..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="addSynonym($event)" />
-      </mat-chip-list>
-    </mat-form-field>
-    <mat-accordion class="example-headers-align" [multi]="true">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Notion
-          </mat-panel-title>
-          <mat-panel-description>{{ getNotionsDescription() }}</mat-panel-description>
-        </mat-expansion-panel-header>
+<mat-card>
+  <mat-card-content>
+    <form class="form" *ngIf="symbol; let symbol; else loading">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Name" name="name" [(ngModel)]="symbol.name">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Category" [(value)]="symbol.category">
+          <mat-option *ngFor="let item of categories | keys; let i = index" [value]="i">
+            {{item.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let synonym of symbol.synonyms" [selectable]="true" color="primary" [removable]="true" (remove)="removeSynonym(synonym)">
+            {{synonym.name}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Synonyms..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addSynonym($event)" />
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-accordion class="example-headers-align" [multi]="true">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Notion
+            </mat-panel-title>
+            <mat-panel-description>{{ getNotionsDescription() }}</mat-panel-description>
+          </mat-expansion-panel-header>
 
-        <mat-nav-list dense>
-          <mat-list-item *ngFor="let notion of symbol.notions">
-            <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeNotion(notion)">
-              <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
-            </a>
-            {{ notion.expression }}
-          </mat-list-item>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Add a new expression to Notion" (keyup.enter)="addNotion()" name="notion"
-              [(ngModel)]="newNotion">
-          </mat-form-field>
-        </mat-nav-list>
-      </mat-expansion-panel>
+          <mat-nav-list dense>
+            <mat-list-item *ngFor="let notion of symbol.notions">
+              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeNotion(notion)">
+                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+              </a>              
+              <ng-container *ngFor="let word of getParsedExpression(notion.expression)">                
+                <mat-chip *ngIf="word.name; else showText" color="primary" (click)="removeNotion(notion)">{{ word.name + ' ' }}</mat-chip>
+                <ng-template #showText>
+                  {{ word + ' ' }}
+                </ng-template>
+              </ng-container>
+            </mat-list-item>
+            <mat-form-field class="full-width">
+              <input 
+              matInput
+               placeholder="notion" 
+               (keyup.enter)="addNotion($event)" 
+               (keyup.arrowup)="trigger._handleKeydown($event)"     
+               (keyup.arrowdown)="trigger._handleKeydown($event)"               
+               (keyup)="notionInputChange($event)" 
+               name="pruebanotion" 
+               [(ngModel)]="newNotion" 
+               matAutocompleteOrigin 
+               #autoCompleteNotionOrigin="matAutocompleteOrigin">              
+            </mat-form-field>
+            <mat-form-field class="full-width" [style.display]="'none'" >              
+              <input matInput [formControl]="notionControl" [matAutocomplete]="auto" [matAutocompleteConnectedTo]="autoCompleteNotionOrigin">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="notionSymbolSelected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async " [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-nav-list>
+        </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -63,11 +86,11 @@
           </mat-form-field>
 
         </mat-expansion-panel>
-    </mat-accordion>
-  </form>
-  <ng-template #loading>Loading User Data...</ng-template>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-primary color="primary" (click)="save()">Save</button>
-  <button mat-button mat-primary color="primary" [mat-dialog-close]>Cancel</button>
-</mat-dialog-actions>
+      </mat-accordion>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button mat-primary color="primary" *ngIf="canSave" (click)="save()">Save</button>
+    <button mat-button mat-primary color="primary" *ngIf="canSave" (click)="cancel()">Cancel</button>
+  </mat-card-actions>
+</mat-card>

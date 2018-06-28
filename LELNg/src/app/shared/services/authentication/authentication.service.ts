@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../../environments/environment';
-import { RegisterUser } from '../../models';
+import { RegisterUser, User } from '../../models';
 
 @Injectable()
 export class AuthenticationService {
@@ -39,5 +39,9 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+    }
+
+    getUser(): User {
+        return JSON.parse(localStorage.getItem('currentUser'));
     }
 }

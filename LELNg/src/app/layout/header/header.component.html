@@ -2,20 +2,20 @@
   <mat-toolbar color="primary">
     <a mat-button routerLink="." aria-disabled="false">Lexicon Extended Language</a>
     <span class="navbar-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="themes">
+    <button mat-icon-button [matMenuTriggerFor]="themes">
       <mat-icon>format_paint</mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="appMenu">
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="userMenu">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
       <mat-icon>account_box</mat-icon>
     </button>
   </mat-toolbar>
 </nav>
 <mat-menu #appMenu="matMenu">
   <button mat-menu-item> Settings</button>
-  <button mat-menu-item> Help</button>
+  <button mat-menu-item> Help</button>  
 </mat-menu>
 <mat-menu #themes="matMenu" [class]="menu-content">
   <mat-grid-list cols="2" rowHeight="50px" class="grid">

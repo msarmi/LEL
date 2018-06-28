@@ -1,0 +1,4 @@
+<mat-dialog-content class="modal-container">
+  <app-symbol-editor class="symbol-panel" [symbolId]="symbolId" (saved)="saved(symbol)" (canceled)="canceled()"></app-symbol-editor>
+  <app-symbol-editor class="symbol-panel" [symbolId]="relatedSymbolId" [canSave]="false"></app-symbol-editor>
+</mat-dialog-content>

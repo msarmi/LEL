@@ -19,6 +19,10 @@ export class SymbolsService {
                     );
   }
 
+  allWithSynonyms(): Observable<Symbol[]> {
+    return this.http.get<Symbol[]>(`${this.symbolUrl}/allwithsynonyms`);
+  }
+
   update(symbol: Symbol): Observable<Symbol> {
     return this.http.put<Symbol>(`${this.symbolUrl}/${symbol.id}/`, symbol)
                     .pipe(

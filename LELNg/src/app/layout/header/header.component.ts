@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { DerpPipe } from '../../shared/pipes/derp-pipe';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/from';
 import { concatMap, delay } from 'rxjs/operators';
 import { AuthenticationService } from '../../shared/services/authentication/authentication.service';

@@ -4,7 +4,6 @@
         <mat-icon aria-hidden="true" fontSet="fa" class="auto-height" mat-fab fontIcon="fa-plus"></mat-icon>
     </button>
 </mat-toolbar>
-
 <div class="flex-container">
     <div *ngFor="let symbol of symbols; index as i">
         <mat-card class="symbol-card mat-elevation-z8">
@@ -16,13 +15,13 @@
 
             </mat-card-content>
             <mat-card-actions>
-                <button mat-icon-button mat-primary color="primary" (click)="viewSymbol(i);">
-                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-search"></mat-icon>ñ
+                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-search"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol,'edit')">
+                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol,'edit')">
+                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-comment"></mat-icon>
                 </button>
                 <button mat-icon-button mat-primary color="primary">

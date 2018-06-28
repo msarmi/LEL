@@ -15,7 +15,9 @@ namespace LELApi.Controllers
 
         [Route("api/[controller]/{id}/symbols")]        
         public IEnumerable<Symbol> GetLELProjectSymbols(long id) {
-            var project = this._context.Set<LELProject>().Include(aProject => aProject.Symbols).FirstOrDefault(aProject => aProject.Id == id);
+            var project = this._context.Set<LELProject>()
+            .Include(aProject => aProject.Symbols)
+            .ThenInclude(aProject => aProject.Synonyms).FirstOrDefault(aProject => aProject.Id == id);
             if (project != null) {
                 return project.Symbols;
             }

@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.user = new RegisterUser();
-    this.themingService.getTheme().subscribe(theme => this.themeClass = theme);
+    this.themingService.init().subscribe(theme => this.themeClass = theme);
   }
 
   register() {

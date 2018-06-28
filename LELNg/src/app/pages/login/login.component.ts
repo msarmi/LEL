@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-      this.themingService.getTheme().subscribe(theme => this.themeClass = theme);
+      this.themingService.init().subscribe(theme => this.themeClass = theme);
   }
 
   login() {

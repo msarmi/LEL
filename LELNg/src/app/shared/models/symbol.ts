@@ -6,8 +6,8 @@ export class Symbol {
     authorId: number;
     author: User;
     category: Category;
-    lELProjectId: number;
-    lELProject: LELProject;
+    lelProjectId: number;
+    lelProject: LELProject;
     synonyms: Synonym[];
     notions: Notion[];
     behaviouralResponses: BehaviouralResponse[];
