@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SymbolModalComponent } from './symbol-modal/symbol-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RelatedSymbolEditorComponent } from './related-symbol-editor/related-symbol-editor.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent],
-  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent]
+  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent],
+  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent]
 })
 export class SymbolsModule { }

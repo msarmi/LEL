@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@mixin symbol-editor-theme($theme) {
+@mixin related-symbol-editor-theme($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);

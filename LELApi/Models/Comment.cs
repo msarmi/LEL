@@ -8,9 +8,9 @@ namespace LELApi.Models
 {
     public class Comment : IEntity<long>
     {
-		public long Id { get; set; }
-		public string Content { get; set; }
-		public long AuthorId { get; set; }		
-		public virtual User Author { get; set; }		
-	}
+        public long Id { get; set; }
+        public string Content { get; set; }
+        public long AuthorId { get; set; }
+        public virtual User Author { get; set; }
+    }
 }

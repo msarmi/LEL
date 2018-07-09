@@ -11,6 +11,8 @@
 @import 'app/layout/footer/footer.component.scss';
 @import 'app/pages/login/login.component.scss';
 @import 'app/pages/register/register.component.scss';
+@import 'app/pages/symbols/symbol-editor/symbol-editor.component.scss';
+@import 'app/pages/symbols/related-symbol-editor/related-symbol-editor.component.scss';
 
 .light-blue {
     $primary: mat-palette($mat-blue);
@@ -18,11 +20,17 @@
     
     $warn:    mat-palette($mat-lime);
     $light-blue: mat-light-theme($primary, $accent, $warn);
+
+    .link {
+        color: mat-color($accent);
+    }
     
     @include angular-material-theme($light-blue);
     @include footer-theme($light-blue);
     @include login-theme($light-blue);
     @include register-theme($light-blue);
+    @include symbol-editor-theme($light-blue);
+    @include related-symbol-editor-theme($light-blue);
 }
 
 // specify theme class eg: <body class="my-theme"> ... </body>
@@ -33,6 +41,10 @@
     // The warn palette is optional (defaults to red).
     $warn:    mat-palette($mat-blue-grey);
     
+    .link {
+        color: mat-color($accent);
+    }
+
     // Create the theme object (a Sass map containing all of the palettes).
     $light-green: mat-light-theme($primary, $accent, $warn);
     // use our theme with angular-material-theme mixin
@@ -40,19 +52,26 @@
     @include footer-theme($light-green);
     @include login-theme($light-green);
     @include register-theme($light-green);
+    @include symbol-editor-theme($light-green);
+    @include related-symbol-editor-theme($light-green);
 }
 
 .pink-dark {
-    $dark-primary: mat-palette($mat-pink);
-    $dark-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
-    $dark-warn:    mat-palette($mat-deep-orange);
+    $primary: mat-palette($mat-pink);
+    $accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+    $warn:    mat-palette($mat-deep-orange);
+    .link {
+        color: mat-color($accent);
+    }
 
-    $pink-dark: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+    $pink-dark: mat-dark-theme($primary, $accent, $warn);
 
     @include angular-material-theme($pink-dark);
     @include footer-theme($pink-dark);
     @include login-theme($pink-dark);
     @include register-theme($pink-dark);
+    @include symbol-editor-theme($pink-dark);
+    @include related-symbol-editor-theme($pink-dark);
 }
 
 .mat-dialog-container {

@@ -8,9 +8,9 @@ namespace LELApi.Models
 {
     public enum Category
     {
-      Subject,
-      Object,
-      Verb,
-      State
+        Subject,
+        Object,
+        Verb,
+        State
     }
 }

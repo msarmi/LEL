@@ -11,6 +11,6 @@ namespace LELApi.Controllers
 {
     public class RoleController : GenericApiController<Role, long>
     {
-        public RoleController(LELContext context) : base(context) { }        
+        public RoleController(LELContext context) : base(context) { }
     }
 }

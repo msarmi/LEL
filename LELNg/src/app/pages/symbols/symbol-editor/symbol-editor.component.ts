@@ -32,6 +32,7 @@ export class SymbolEditorComponent implements OnInit {
 
   @Output('saved') saved = new EventEmitter<Symbol>();
   @Output('canceled') canceled = new EventEmitter<void>();
+  @Output('loadRelatedSymbol') loadRelatedSymbol = new EventEmitter<number>();
 
   categories = Category;
   mode: string;
@@ -274,5 +275,9 @@ export class SymbolEditorComponent implements OnInit {
       }
     );
     return splitted;
+  }
+
+  relatedSymbolSelected(symbolId: number) {
+    this.loadRelatedSymbol.emit(symbolId);
   }
 }

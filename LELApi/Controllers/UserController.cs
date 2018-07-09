@@ -49,7 +49,7 @@ namespace LELApi.Controllers
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
@@ -60,7 +60,8 @@ namespace LELApi.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             // return basic user info (without password) and token to store client side
-            return Ok(new {
+            return Ok(new
+            {
                 Id = user.Id,
                 Username = user.UserName,
                 FirstName = user.Name,
@@ -76,13 +77,13 @@ namespace LELApi.Controllers
             // map dto to entity
             var user = _mapper.Map<User>(userDto);
 
-            try 
+            try
             {
                 // save 
                 _userService.Create(user, userDto.Password);
                 return Ok();
-            } 
-            catch(AppException ex)
+            }
+            catch (AppException ex)
             {
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
@@ -92,7 +93,7 @@ namespace LELApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users =  _userService.GetAll();
+            var users = _userService.GetAll();
             var userDtos = _mapper.Map<IList<UserDTO>>(users);
             return Ok(userDtos);
         }
@@ -100,7 +101,7 @@ namespace LELApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user =  _userService.GetById(id);
+            var user = _userService.GetById(id);
             var userDto = _mapper.Map<UserDTO>(user);
             return Ok(userDto);
         }
@@ -112,13 +113,13 @@ namespace LELApi.Controllers
             var user = _mapper.Map<User>(userDto);
             user.Id = id;
 
-            try 
+            try
             {
                 // save 
                 _userService.Update(user, userDto.Password);
                 return Ok();
-            } 
-            catch(AppException ex)
+            }
+            catch (AppException ex)
             {
                 // return error message if there was an exception
                 return BadRequest(ex.Message);

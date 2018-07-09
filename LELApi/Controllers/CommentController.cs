@@ -11,6 +11,6 @@ namespace LELApi.Controllers
 {
     public class CommentController : GenericApiController<Comment, long>
     {
-        public CommentController(LELContext context) : base(context) { }        
+        public CommentController(LELContext context) : base(context) { }
     }
 }

@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>
+    {{ symbol.name }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ symbol.category }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <form class="form" *ngIf="symbol; let symbol; else loading">
+      <mat-form-field class="full-width">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let synonym of symbol.synonyms" mat-primary selected color="primary">
+            {{synonym.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-accordion class="example-headers-align" [multi]="true">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Notion
+            </mat-panel-title>
+            <mat-panel-description>{{ getNotionsDescription() }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let notion of symbol.notions">
+              <ng-container *ngFor="let word of getParsedExpression(notion.expression)">
+                <span *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</span>
+                <ng-template #showText>
+                  {{ word + ' ' }}
+                </ng-template>
+              </ng-container>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Behavioural Response
+            </mat-panel-title>
+            <mat-panel-description>{{ getBehaviouralResponsesDescription() }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-nav-list dense>
+            <mat-list-item *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
+              {{ behaviouralResponse.expression }}
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card-content>
+</mat-card>

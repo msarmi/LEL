@@ -13,7 +13,7 @@
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let synonym of symbol.synonyms" [selectable]="true" color="primary" [removable]="true" (remove)="removeSynonym(synonym)">
+          <mat-chip *ngFor="let synonym of symbol.synonyms" mat-primary selected color="primary" [removable]="true" (remove)="removeSynonym(synonym)">
             {{synonym.name}}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
@@ -29,19 +29,19 @@
             </mat-panel-title>
             <mat-panel-description>{{ getNotionsDescription() }}</mat-panel-description>
           </mat-expansion-panel-header>
-
-          <mat-nav-list dense>
-            <mat-list-item *ngFor="let notion of symbol.notions">
-              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeNotion(notion)">
-                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
-              </a>              
-              <ng-container *ngFor="let word of getParsedExpression(notion.expression)">                
-                <mat-chip *ngIf="word.name; else showText" color="primary" (click)="removeNotion(notion)">{{ word.name + ' ' }}</mat-chip>
-                <ng-template #showText>
-                  {{ word + ' ' }}
-                </ng-template>
-              </ng-container>
-            </mat-list-item>
+            <ul>
+              <li *ngFor="let notion of symbol.notions">
+                  <a mat-icon-button mat-primary color="primary" (click)="removeNotion(notion)">
+                      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                  </a>
+                  <ng-container *ngFor="let word of getParsedExpression(notion.expression)">                
+                      <span *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</span>
+                      <ng-template #showText>
+                        {{ word + ' ' }}
+                      </ng-template>
+                    </ng-container>       
+              </li>
+            </ul>
             <mat-form-field class="full-width">
               <input 
               matInput
@@ -63,7 +63,6 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-          </mat-nav-list>
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -90,7 +89,7 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button mat-primary color="primary" *ngIf="canSave" (click)="save()">Save</button>
-    <button mat-button mat-primary color="primary" *ngIf="canSave" (click)="cancel()">Cancel</button>
+    <button mat-button mat-primary color="primary" (click)="save()">Save</button>
+    <button mat-button mat-primary color="primary" (click)="cancel()">Cancel</button>
   </mat-card-actions>
 </mat-card>

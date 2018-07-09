@@ -8,31 +8,32 @@ using System.Threading.Tasks;
 
 namespace LELApi.DAL
 {
-	public class LELContext : DbContext
-    {		
-		public LELContext(DbContextOptions<LELContext> options)
-		  :base(options)
-		{
-			
-		}
+    public class LELContext : DbContext
+    {
+        public LELContext(DbContextOptions<LELContext> options)
+          : base(options)
+        {
 
-		public LELContext():base() {
-			
-		}
+        }
 
-		public DbSet<LELProject> LELProject { get; set; }
-		public DbSet<Symbol> Symbol { get; set; }		
-		public DbSet<User> User { get; set; }		
-		public DbSet<Synonym> Synonym { get; set; }
-		public DbSet<Comment> Comment { get; set; }
-		public DbSet<Role> Role { get; set; }
+        public LELContext() : base()
+        {
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{			
-			//modelBuilder.Entity<NotionExpression>()
-			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
-			
-			/*
+        }
+
+        public DbSet<LELProject> LELProject { get; set; }
+        public DbSet<Symbol> Symbol { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Synonym> Synonym { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<Role> Role { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<NotionExpression>()
+            //	.HasKey(t => new { t.SymbolId, t.ExpressionId });
+
+            /*
 			modelBuilder.Entity<NotionExpression>()
 				.HasOne(pt => pt.Symbol)
 				.WithMany(p => p.Notions)
@@ -43,9 +44,9 @@ namespace LELApi.DAL
 				.WithMany(t => t.NotionSymbols)
 				.HasForeignKey(pt => pt.ExpressionId);
 			*/
-			//modelBuilder.Entity<ActionExpression>()
-			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
-			/*
+            //modelBuilder.Entity<ActionExpression>()
+            //	.HasKey(t => new { t.SymbolId, t.ExpressionId });
+            /*
 			modelBuilder.Entity<ActionExpression>()
 				.HasOne(pt => pt.Symbol)
 				.WithMany(p => p.Actions)
@@ -56,9 +57,9 @@ namespace LELApi.DAL
 				.WithMany(t => t.ActionSymbols)
 				.HasForeignKey(pt => pt.ExpressionId);
 			*/
-			//modelBuilder.Entity<ExpressionSymbol>()
-			//	.HasKey(t => new { t.SymbolId, t.ExpressionId });
-			/*
+            //modelBuilder.Entity<ExpressionSymbol>()
+            //	.HasKey(t => new { t.SymbolId, t.ExpressionId });
+            /*
 			modelBuilder.Entity<ExpressionSymbol>()
 				.HasOne(pt => pt.Expression)
 				.WithMany(p => p.ContentSymbols)
@@ -74,8 +75,8 @@ namespace LELApi.DAL
 				.WithMany(p => p.Symbols)
 				.HasForeignKey(pt => pt.ProjectId);
 			*/
-			modelBuilder.Entity<LELProjectAdmin>()
-				.HasKey(t => new { t.LELProjectId, t.AdminId });
-		}
-	}
+            modelBuilder.Entity<LELProjectAdmin>()
+                .HasKey(t => new { t.LELProjectId, t.AdminId });
+        }
+    }
 }

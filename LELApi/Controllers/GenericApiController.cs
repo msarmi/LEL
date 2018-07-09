@@ -45,7 +45,7 @@ namespace LELApi.Controllers
             {
                 return BadRequest();
             }
-            
+
             TEntity dbEntityMapped = this.MapOnUpdate(entity);
 
             _context.Update(dbEntityMapped);
@@ -65,18 +65,20 @@ namespace LELApi.Controllers
             {
                 return BadRequest();
             }
-            this.MapOnCreate(entity);            
+            this.MapOnCreate(entity);
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
 
             return new ObjectResult(entity);
         }
 
-        public virtual void MapOnCreate(TEntity entity){
-            
+        public virtual void MapOnCreate(TEntity entity)
+        {
+
         }
 
-        public virtual TEntity MapOnUpdate(TEntity entityWithNewValues){
+        public virtual TEntity MapOnUpdate(TEntity entityWithNewValues)
+        {
             return entityWithNewValues;
         }
     }

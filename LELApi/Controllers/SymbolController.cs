@@ -30,17 +30,17 @@ namespace LELApi.Controllers
         }
 
         public override void MapOnCreate(Symbol entity)
-        {           
+        {
             // this is necessary because the symbol doesn't have an id yet.
-            foreach (Synonym syn in entity.Synonyms) 
+            foreach (Synonym syn in entity.Synonyms)
             {
-                syn.Symbol = entity;                
+                syn.Symbol = entity;
             }
-            foreach (BehaviouralResponse act in entity.BehaviouralResponses) 
+            foreach (BehaviouralResponse act in entity.BehaviouralResponses)
             {
                 act.Symbol = entity;
             }
-            foreach (Notion notion in entity.Notions) 
+            foreach (Notion notion in entity.Notions)
             {
                 notion.Symbol = entity;
             }
@@ -50,15 +50,15 @@ namespace LELApi.Controllers
         {
             var symbolDb = _context.Set<Symbol>().Include(s => s.Synonyms).Include(sym => sym.BehaviouralResponses).Include(sym => sym.Notions).FirstOrDefault(s => s.Id == entityWithNewValues.Id);
             _context.Set<Synonym>().RemoveRange(symbolDb.Synonyms.Where(syn => !entityWithNewValues.Synonyms.Any(x => x.Id == syn.Id)));
-           _context.Set<Notion>().RemoveRange(symbolDb.Notions.Where(noti => !entityWithNewValues.Notions.Any(x => x.Id == noti.Id)));
-           _context.Set<BehaviouralResponse>().RemoveRange(symbolDb.BehaviouralResponses.Where(br => !entityWithNewValues.Notions.Any(x => x.Id == br.Id)));
-            
+            _context.Set<Notion>().RemoveRange(symbolDb.Notions.Where(noti => !entityWithNewValues.Notions.Any(x => x.Id == noti.Id)));
+            _context.Set<BehaviouralResponse>().RemoveRange(symbolDb.BehaviouralResponses.Where(br => !entityWithNewValues.Notions.Any(x => x.Id == br.Id)));
+
             foreach (Synonym syn in entityWithNewValues.Synonyms)
             {
                 if (syn.Id == 0)
                 {
                     symbolDb.Synonyms.Add(syn);
-                    syn.Symbol = symbolDb;                    
+                    syn.Symbol = symbolDb;
                 }
             }
             foreach (BehaviouralResponse br in entityWithNewValues.BehaviouralResponses)
@@ -66,7 +66,7 @@ namespace LELApi.Controllers
                 if (br.Id == 0)
                 {
                     symbolDb.BehaviouralResponses.Add(br);
-                    br.Symbol = symbolDb;                    
+                    br.Symbol = symbolDb;
                 }
             }
             foreach (Notion noti in entityWithNewValues.Notions)
@@ -74,7 +74,7 @@ namespace LELApi.Controllers
                 if (noti.Id == 0)
                 {
                     symbolDb.Notions.Add(noti);
-                    noti.Symbol = symbolDb;                    
+                    noti.Symbol = symbolDb;
                 }
             }
             return symbolDb;

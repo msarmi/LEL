@@ -24,4 +24,8 @@ export class SymbolModalComponent implements OnInit {
   canceled() {
     this.dialogRef.close();
   }
+
+  loadRelatedSymbol(symbolId:number){
+    this.relatedSymbolId = symbolId;
+  }
 }
