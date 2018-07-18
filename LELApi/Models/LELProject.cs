@@ -13,6 +13,6 @@ namespace LELApi.Models
         public long AuthorId { get; set; }
         public virtual User Author { get; set; }
         public virtual ICollection<LELProjectAdmin> Admins { get; set; }
-        public virtual ICollection<Symbol> Symbols { get; set; }
+        public virtual ICollection<Symbol> Symbols { get; set; }    
     }
 }

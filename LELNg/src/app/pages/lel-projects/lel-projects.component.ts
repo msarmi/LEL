@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material';
 })
 export class LelProjectsComponent implements OnInit {
 
-  displayedColumns = ['view', 'edit', 'delete', 'id', 'name', 'authorId' ];
+  displayedColumns = ['view', 'edit', 'delete', 'id', 'name', 'authorName' ];
   dataSource: LELProjectsDataSource | null;
   lelProject: LELProject;
 
@@ -26,30 +26,27 @@ export class LelProjectsComponent implements OnInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(LelEditorComponent, {
-      width: '250px',
+      width: '400px',
       data: {lelProject: this.lelProject}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.lelProject = result;
-        // validar que no esté vacio el lel
-        this.lelProject.authorId = 1;
-        this.lelProjectsService.save(this.lelProject);
+        this.dataSource = new LELProjectsDataSource(this.lelProjectsService, this.paginator, this.sort);
+        //this.lelProjectsService.save(this.lelProject);
       }
     });
   }
 
   openEditDialog(lelProject: LELProject ): void {
     const dialogRef = this.dialog.open(LelEditorComponent, {
-      width: '250px',
-      data: {lelProject: lelProject}
+      data: { lelProjectId: lelProject.id, lelProject: lelProject },
+      width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.lelProject = result;
-      this.lelProject.authorId = 1;
-      // this.lelProjectsService.update(lelProject);
     });
 
   }

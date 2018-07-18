@@ -3,8 +3,8 @@ import { Role } from './index';
 export class User {
     id: number;
     name: string;
-    lastname: string;
-    username: string;
+    lastName: string;
+    userName: string;
     email: string;
     alias: string;
     role: Role;

@@ -7,6 +7,7 @@ import { LelEditorComponent } from './lel-editor/lel-editor.component';
 import { FormsModule } from '@angular/forms';
 import { LelViewComponent } from './lel-view/lel-view.component';
 // import { LelProjectsRoutingModule } from './lel-projects-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SymbolsModule } from '../symbols/symbols.module';
 import { SymbolModalComponent } from '../symbols/symbol-modal/symbol-modal.component';
 
@@ -16,7 +17,9 @@ import { SymbolModalComponent } from '../symbols/symbol-modal/symbol-modal.compo
     MaterialModule,
     FormsModule,
     SymbolsModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
     // ,
     // LelProjectsRoutingModule
   ],

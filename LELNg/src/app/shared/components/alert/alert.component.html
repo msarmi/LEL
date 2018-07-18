@@ -1,0 +1,4 @@
+<mat-dialog-content class="modal-container">
+  <app-symbol-editor class="symbol-panel" [symbolId]="symbolId" (saved)="saved(symbol)" (canceled)="canceled()" (loadRelatedSymbol)="loadRelatedSymbol($event)"></app-symbol-editor>
+  <app-related-symbol-editor class="symbol-panel" [symbolId]="relatedSymbolId"></app-related-symbol-editor>
+</mat-dialog-content>
