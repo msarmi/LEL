@@ -6,6 +6,7 @@ import { LELProject } from '../../shared/models/index';
 import { LelProjectsService } from '../../shared/services/lel-projects/lel-projects.service';
 import { LelEditorComponent } from './lel-editor/lel-editor.component';
 import { MatDialog } from '@angular/material';
+import { AlertComponent } from '../../shared/components/alert/alert.component';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class LelProjectsComponent implements OnInit {
       if (result) {
         this.lelProject = result;
         this.dataSource = new LELProjectsDataSource(this.lelProjectsService, this.paginator, this.sort);
-        //this.lelProjectsService.save(this.lelProject);
+        
       }
     });
   }
@@ -51,8 +52,19 @@ export class LelProjectsComponent implements OnInit {
 
   }
 
-  removeLelProject(): void {
-    // this.lelProjectsService.remove(this.lelProject);
+  removeLelProject(lelProject: LELProject): void {
+    const dialogRef = this.dialog.open(AlertComponent, {
+    data: { message: `Are you sure you want to delete ${lelProject.name} ?`  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+      if(result){
+        this.lelProjectsService.remove(lelProject);
+      }
+
+    });
+
   }
 
   ngOnInit() {

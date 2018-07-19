@@ -37,7 +37,10 @@ export class LelProjectsService {
   }
 
   remove(lelProject: LELProject) {
-    // ToDo
+    return this.http.delete<LELProject>(`${this.lelProjectsUrl}/${lelProject.id}/`)
+    .pipe(
+      tap(response => console.log('lelProject'))
+    );
   }
 }
 
