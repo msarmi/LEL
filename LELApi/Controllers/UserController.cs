@@ -99,15 +99,15 @@ namespace LELApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(long id)
         {
             var user = _userService.GetById(id);
             var userDto = _mapper.Map<UserDTO>(user);
             return Ok(userDto);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]UserDTO userDto)
+        [HttpPut("api/[controller]/{id}")]
+        public IActionResult Update(long id, [FromBody]UserDTO userDto)
         {
             // map dto to entity and set id
             var user = _mapper.Map<User>(userDto);
@@ -131,6 +131,17 @@ namespace LELApi.Controllers
         {
             _userService.Delete(id);
             return Ok();
+        }
+
+        [HttpGet("api/[controller]/{id}")]
+        public virtual IActionResult Get(long id)
+        {
+            var entity = _userService.GetById(id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(entity);
         }
     }
 }

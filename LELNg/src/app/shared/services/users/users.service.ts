@@ -8,14 +8,14 @@ import { User } from '../../models';
 @Injectable()
 export class UsersService {
 
-  private userUrl = environment.apiUrl + 'symbol';
+  private userUrl = environment.apiUrl + 'user';
 
   constructor(private http: HttpClient) { }
 
   get(id: number): Observable<User> {
     return this.http.get<User>(`${this.userUrl}/${id}/`)
                     .pipe(
-                      tap(response => console.log(`symbol ${id} getted`))
+                      tap(response => console.log(`user ${id} getted`))
                     );
   }
 

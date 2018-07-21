@@ -1,15 +1,29 @@
-<mat-card class="user-card" >
-  <mat-card-header>
-    <mat-card-title>User data</mat-card-title>
-    <mat-card-subtitle>Complete your info</mat-card-subtitle>    
-  </mat-card-header>
-  <mat-card-content>
-    <!-- <mat-input-container class="user-card-input-container"> -->
-      <input mdInput placeholder="Name">
-    <!-- </mat-input-container> -->
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>SAVE</button>
-    <button mat-button>CANCEL</button>
-  </mat-card-actions>
-</mat-card>
+<h1 mat-dialog-title>User data</h1>
+<mat-dialog-content mat-primary color="primary">
+
+    <form class="form" #f="ngForm" *ngIf="user; let user; else loading" >
+
+        <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="full-width">
+            <input matInput placeholder="Username" [(ngModel)]="user.userName" name="username" #username="ngModel" required>
+            <mat-error *ngIf="f.submitted && !username.valid">Username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !email.valid }" class="full-width">
+            <input type="text" matInput placeholder="Email" name="email" [(ngModel)]="user.email" #email="ngModel" required>
+            <mat-error *ngIf="f.submitted && !email.valid">Email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !name.valid }" class="full-width">
+            <input matInput placeholder="Firstname" [(ngModel)]="user.name" name="name" #name="ngModel">
+        </mat-form-field>
+
+        <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }" class="full-width">
+            <input matInput placeholder="Lastname" [(ngModel)]="user.lastName" name="lastname" #lastname="ngModel">
+        </mat-form-field>
+
+      <button mat-button mat-primary color="primary"  [disabled]="!username.valid || !email.valid || loading" (click)="updateUserData()" >SAVE</button>
+      <button mat-button mat-primary color="primary" mat-dialog-close >CANCEL</button>
+
+    </form>
+
+</mat-dialog-content>

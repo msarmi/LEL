@@ -11,10 +11,10 @@ namespace LELApi.Services
     {
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
-        User GetById(int id);
+        User GetById(long id);
         User Create(User user, string password);
         void Update(User user, string password = null);
-        void Delete(int id);
+        void Delete(long id);
     }
 
     public class UserService : IUserService
@@ -50,7 +50,7 @@ namespace LELApi.Services
             return _context.User;
         }
 
-        public User GetById(int id)
+        public User GetById(long id)
         {
             return _context.User.Find(id);
         }
@@ -109,7 +109,7 @@ namespace LELApi.Services
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var user = _context.User.Find(id);
             if (user != null)
