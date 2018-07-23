@@ -1,12 +1,12 @@
-<mat-card>
+<mat-card *ngIf="symbol; let symbol; else loading">
   <mat-card-title>
     {{ symbol.name }}
   </mat-card-title>
   <mat-card-subtitle>
-    {{ symbol.category }}
+    {{ symbol.categoryString }}
   </mat-card-subtitle>
   <mat-card-content>
-    <form class="form" *ngIf="symbol; let symbol; else loading">
+    <form class="form">
       <mat-form-field class="full-width">
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let synonym of symbol.synonyms" mat-primary selected color="primary">
@@ -25,8 +25,7 @@
           <ul>
             <li *ngFor="let notion of symbol.notions">
               <ng-container *ngFor="let word of getParsedExpression(notion.expression)">
-                <span *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</span>
-                <ng-template #showText>
+                <a *ngIf="word.name; else showText" color="accent" class="link" (click)="symbolId = word.id">{{ '#' + word.name + ' ' }}</a>                <ng-template #showText>
                   {{ word + ' ' }}
                 </ng-template>
               </ng-container>
@@ -50,3 +49,6 @@
     </form>
   </mat-card-content>
 </mat-card>
+<ng-template #loading>
+  No related symbol loaded.
+</ng-template>

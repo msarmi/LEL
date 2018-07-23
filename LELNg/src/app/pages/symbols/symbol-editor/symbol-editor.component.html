@@ -35,7 +35,7 @@
                       <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                   </a>
                   <ng-container *ngFor="let word of getParsedExpression(notion.expression)">                
-                      <span *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</span>
+                      <a *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
                       <ng-template #showText>
                         {{ word + ' ' }}
                       </ng-template>

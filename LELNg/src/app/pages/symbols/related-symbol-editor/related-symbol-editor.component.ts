@@ -1,12 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Category, Symbol, Synonym, Notion, BehaviouralResponse } from '../../../shared/models/index';
+import { Component, OnInit, Input } from '@angular/core';
+import { Symbol } from '../../../shared/models/index';
 import { SymbolsService } from '../../../shared/services/symbols/symbols.service';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { ViewChild } from '@angular/core';
-import { MatAutocompleteTrigger } from '@angular/material';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
 
 @Component({
@@ -23,53 +18,31 @@ export class RelatedSymbolEditorComponent implements OnInit {
   }
   @Input('symbolId')
   set symbolId(symbolId: number) {
-    if (symbolId !== this._symbolId) {
-      this._symbolId = symbolId;
-      if (this._symbolId) {
-        this.symbolsService.get(this.symbolId)
-          .subscribe(
-            (response) => {
-              this.symbol = response;
-              this.lelProjectsService.getLelProjectSymbols(response.lelProjectId).subscribe(
-                (symbols) => {
-                  this.symbols = symbols;
-                  this.symbols.forEach(
-                    (sym) => this.options.push('#' + sym.name)
-                  );
-                }
-              );
-            }
-          );
-      }
+    this._symbolId = symbolId;
+    if (this._symbolId) {
+      this.symbolsService.get(this.symbolId)
+        .subscribe(
+          (response) => {
+            this.symbol = response;
+            this.lelProjectsService.getLelProjectSymbols(response.lelProjectId).subscribe(
+              (symbols) => {
+                this.symbols = symbols;
+                this.symbols.forEach(
+                  (sym) => this.options.push('#' + sym.name)
+                );
+              }
+            );
+          }
+        );
     }
   }
 
-  @Input() canSave: boolean;
-
-  @Output('saved') saved = new EventEmitter<Symbol>();
-  @Output('canceled') canceled = new EventEmitter<void>();
-  @Output('loadRelatedSymbol') loadRelatedSymbol = new EventEmitter<number>();
-
-  categories = Category;
-  mode: string;
   newNotion: string;
   newNotionCursorIndex: number;
   newBehaviouralResponse: string;
 
-  visible: true;
-  selectable: true;
-  removable: true;
-  addOnBlur: true;
-
-  separatorKeysCodes = [ENTER, COMMA];
-
-  notionControl = new FormControl();
-
   symbols: Symbol[];
   options: string[] = [];
-
-  filteredOptions: Observable<string[]>;
-  @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
 
   constructor(
     private symbolsService: SymbolsService,
@@ -151,9 +124,5 @@ export class RelatedSymbolEditorComponent implements OnInit {
       }
     );
     return splitted;
-  }
-
-  relatedSymbolSelected(symbolId: number) {
-    this.loadRelatedSymbol.emit(symbolId);
   }
 }
