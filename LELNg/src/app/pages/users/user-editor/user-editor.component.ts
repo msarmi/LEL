@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { User } from '../../../shared/models';
+import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
+import { MatDialogRef } from '../../../../../node_modules/@angular/material';
+
 
 @Component({
   selector: 'app-user-editor',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserEditorComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  userId: number;
+  repeatPassword: string;
+ 
+  constructor(
+    private authenticationService: AuthenticationService,
+    public dialogRef: MatDialogRef<UserEditorComponent>) { }
 
   ngOnInit() {
+    this.userId = this.authenticationService.getUser().id;
+    this.authenticationService.get(this.userId).subscribe( (response) => this.user = response);    
   }
 
+  updateUserData() {
+    this.authenticationService.update(this.user).subscribe(response => this.user = response);
+    this.dialogRef.close();
+  }
+    
 }

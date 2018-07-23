@@ -5,6 +5,8 @@ import 'rxjs/add/observable/from';
 import { concatMap, delay } from 'rxjs/operators';
 import { AuthenticationService } from '../../shared/services/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { UserEditorComponent } from '../../pages/users/user-editor/user-editor.component';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +23,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.themes$ = Observable.of([
@@ -36,6 +39,10 @@ export class HeaderComponent implements OnInit {
   logout() {
       this.authenticationService.logout();
       this.router.navigate(['/login']);
+  }
+
+  openUserEditor(){
+    const dialogRef = this.dialog.open(UserEditorComponent);
   }
 
   themeClassChanged(selectedTheme) {

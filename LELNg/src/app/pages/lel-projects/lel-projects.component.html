@@ -20,16 +20,15 @@
       <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
     </ng-container>
 
-    <!-- State Column -->
-    <ng-container matColumnDef="authorId">
-      <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.authorId }}</mat-cell>
+    <ng-container matColumnDef="authorName">
+      <mat-header-cell *matHeaderCellDef>Author name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.author.userName }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="view">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">        
-        <a mat-icon-button mat-primary color="primary" [routerLink]="['/lelproject', row.id]">
+        <a mat-icon-button mat-primary color="primary" matTooltip="Go to project detail" [routerLink]="['/lelproject', row.id]">
           <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-search"></mat-icon>
         </a>
       </mat-cell>
@@ -38,7 +37,7 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button mat-primary color="primary" (click)="openEditDialog(row)">
+        <button mat-icon-button mat-primary color="primary" matTooltip="Edit project name" (click)="openEditDialog(row)">
             <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
         </button>
       </mat-cell>
@@ -47,7 +46,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button mat-primary color="primary" (click)="removeLelProject(row)">
+        <button mat-icon-button mat-primary color="primary" matTooltip="Delete project" (click)="removeLelProject(row)">
             <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
         </button>
       </mat-cell>
@@ -61,7 +60,7 @@
   </mat-paginator>
 
   <div>
-    <button mat-button mat-primary color="primary" (click)="openCreateDialog()">New</button>
+    <button mat-button mat-primary color="primary" matTooltip="Add a new project" (click)="openCreateDialog()">New</button>
   </div>
 
 </div>

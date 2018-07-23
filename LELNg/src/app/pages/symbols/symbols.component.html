@@ -1,6 +1,6 @@
 <mat-toolbar class="symbol-toolbar">
     <span class="spacer"></span>
-    <button mat-fab color="primary" (click)="openSymbolEditor()">
+    <button mat-fab color="primary" matTooltip="Add a new symbol" (click)="openSymbolEditor()">
         <mat-icon aria-hidden="true" fontSet="fa" class="auto-height" mat-fab fontIcon="fa-plus"></mat-icon>
     </button>
 </mat-toolbar>
@@ -15,16 +15,16 @@
 
             </mat-card-content>
             <mat-card-actions>
-                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
-                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-search"></mat-icon>
-                </button>
-                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
+                <button mat-icon-button mat-primary color="primary" matTooltip="Open symbol editor" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" (click)="openSymbolEditor(symbol.id)">
+                <button mat-icon-button mat-primary color="primary" matTooltip="Delete" (click)="removeSymbol(symbol)" >
+                        <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                </button>
+                <button mat-icon-button mat-primary color="primary" matTooltip="Comments" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-comment"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary">
+                <button mat-icon-button mat-primary color="primary" matTooltip="Like" >
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-up"></mat-icon>
                 </button>
             </mat-card-actions>

@@ -8,4 +8,9 @@ export class LELProject {
     author: User;
     admins: LELProjectAdmin[];
     symbols: Symbol[];
+
+    constructor() {
+        this.admins = [];
+        this.symbols = [];
+    }
 }

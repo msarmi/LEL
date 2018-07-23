@@ -36,4 +36,12 @@ export class SymbolsService {
       tap(response => console.log('symbol'))
     );
   }
+
+  remove(symbol: Symbol) {
+    return this.http.delete<Symbol>(`${this.symbolUrl}/${symbol.id}/`)
+    .pipe(
+      tap(response => console.log('symbol'))
+    );
+  }
+
 }

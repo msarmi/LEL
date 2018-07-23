@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SymbolModalComponent } from './symbol-modal/symbol-modal.component';
 import { MatDialog } from '@angular/material';
 import { Symbol } from '../../shared/models/index';
+import { AlertComponent } from '../../shared/components/alert/alert.component';
+import { SymbolsService } from '../../shared/services/symbols/symbols.service';
 
 @Component({
   selector: 'app-symbols',
@@ -16,6 +18,7 @@ export class SymbolsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private lelProjectsService: LelProjectsService,
+    private symbolsService: SymbolsService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -48,4 +51,21 @@ export class SymbolsComponent implements OnInit {
       }
     });
   }
+
+
+  removeSymbol(symbol: Symbol): void {
+    const dialogRef = this.dialog.open(AlertComponent, {
+    data: { message: `Are you sure you want to delete ${symbol.name} ?`  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+      if(result){
+        this.symbolsService.remove(symbol);
+      }
+
+    });
+
+  }
+
 }

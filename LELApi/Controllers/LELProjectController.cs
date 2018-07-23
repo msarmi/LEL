@@ -25,6 +25,13 @@ namespace LELApi.Controllers
             }
             return null;
         }
+        [HttpGet("api/[controller]")]
+        public override IEnumerable<LELProject> Get()
+        {
+            return _context.Set<LELProject>()
+            .Include(aProject => aProject.Author)
+            .ToList();
+        }
 
         /*public override void Map(LELProject entity){
             if (entity.AuthorId > 0){

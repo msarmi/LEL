@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>LEL Project</h1>
 <div mat-dialog-content>
   <mat-form-field mat-primary color="primary" >
-     <input matInput placeholder="Name" [(ngModel)]="this.lelProject.Name" required>
+     <input matInput placeholder="Enter a project name" [formControl]="name" required>
      <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field> 
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-primary color="primary"  [mat-dialog-close]="lelProject" (click)="save()" tabindex="2">Save</button>
+  <button mat-button mat-primary color="primary" [disabled]="name.invalid" [mat-dialog-close]="lelProject" (click)="save()" tabindex="2">Save</button>
   <button mat-button mat-primary color="primary"  (click)="onNoClick()" tabindex="-1">Cancel</button>
 </div>
