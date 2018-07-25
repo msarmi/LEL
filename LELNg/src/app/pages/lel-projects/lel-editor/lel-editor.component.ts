@@ -4,6 +4,7 @@ import { LELProject } from '../../../shared/models/index';
 import {FormControl, Validators} from '@angular/forms';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
 import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
+import { LelProjectTeam } from '../../../shared/models/lel-project-team';
 
 
 @Component({
@@ -30,6 +31,11 @@ export class LelEditorComponent implements OnInit {
     // validar que se ingrese el nombre
     this.lelProject.name = this.name.value;
     if (this.isModeNew()) {
+        const lelProjectAdmin = new LelProjectTeam();
+        lelProjectAdmin.isAdmin = true;
+        lelProjectAdmin.lelProjectId = this.lelProject.id;
+        lelProjectAdmin.userId= this.lelProject.authorId;
+        this.lelProject.team.push(lelProjectAdmin);
         this.lelProjectsService.save(this.lelProject).subscribe();
     } else {  
       this.lelProjectsService.update(this.lelProject)
