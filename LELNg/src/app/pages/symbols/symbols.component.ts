@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material';
 import { Symbol } from '../../shared/models/index';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { SymbolsService } from '../../shared/services/symbols/symbols.service';
+import { AuthenticationService } from '../../shared/services/authentication/authentication.service';
+import { SymbolLike } from '../../shared/models/symbol-like';
+import { SymbolsLikeService } from '../../shared/services/symbols-like/symbols-like.service';
 
 @Component({
   selector: 'app-symbols',
@@ -19,6 +22,8 @@ export class SymbolsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private lelProjectsService: LelProjectsService,
     private symbolsService: SymbolsService,
+    private authenticationService: AuthenticationService,
+    private symbolsLikeService: SymbolsLikeService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -65,7 +70,22 @@ export class SymbolsComponent implements OnInit {
       }
 
     });
+  }
 
+  like(symbol: Symbol): void {
+    const like = new SymbolLike();
+    like.authorId = this.authenticationService.getUser().id;
+    like.symbolId= symbol.id;
+    like.isLike = true; 
+    this.symbolsLikeService.saveOrUpdate(like).subscribe();
+  }
+
+  disLike(symbol: Symbol): void {
+    const dislike = new SymbolLike();
+    dislike.authorId = this.authenticationService.getUser().id;
+    dislike.symbolId= symbol.id;
+    dislike.isLike = false; 
+    this.symbolsLikeService.saveOrUpdate(dislike).subscribe();
   }
 
 }

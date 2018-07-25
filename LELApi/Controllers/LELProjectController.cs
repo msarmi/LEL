@@ -18,19 +18,33 @@ namespace LELApi.Controllers
         {
             var project = this._context.Set<LELProject>()
             .Include(aProject => aProject.Symbols)
-            .ThenInclude(aProject => aProject.Synonyms).FirstOrDefault(aProject => aProject.Id == id);
+            .ThenInclude(aSymbol => aSymbol.Synonyms).FirstOrDefault(aSymbol => aSymbol.Id == id);
             if (project != null)
             {
                 return project.Symbols;
             }
             return null;
         }
+
         [HttpGet("api/[controller]")]
         public override IEnumerable<LELProject> Get()
         {
             return _context.Set<LELProject>()
             .Include(aProject => aProject.Author)
             .ToList();
+        }
+
+        [Route("api/[controller]/{id}/team")]
+        public IEnumerable<LelProjectTeam> GetLelProjectTeam(long id)
+        {
+            var project = this._context.Set<LELProject>()
+            .Include(aProject => aProject.Team)
+            .ThenInclude(aTeam => aTeam.User).FirstOrDefault(aTeam => aTeam.Id == id);
+            if (project != null)
+            {
+                return project.Team;
+            }
+            return null;
         }
 
         /*public override void Map(LELProject entity){

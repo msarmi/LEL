@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LELProject, Symbol } from '../../models';
 import { environment } from '../../../../environments/environment';
+import { LelProjectTeam } from '../../models/lel-project-team';
 
 @Injectable()
 export class LelProjectsService {
@@ -20,6 +21,10 @@ export class LelProjectsService {
 
   getLelProjectSymbols(id: number): Observable<Symbol[]> {
     return this.http.get<Symbol[]>(this.lelProjectsUrl + `/${id}/symbols`);
+  }
+
+  getLelProjectTeam(id: number): Observable<LelProjectTeam[]> {
+    return this.http.get<LelProjectTeam[]>(this.lelProjectsUrl + `/${id}/team`);
   }
 
   save(lelProject: LELProject): Observable<LELProject> {

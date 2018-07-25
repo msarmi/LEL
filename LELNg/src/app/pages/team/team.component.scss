@@ -1,0 +1,28 @@
+  .flex-container {
+    display: flex;
+    position: relative;
+  }
+
+  .auto-height {
+    height: auto;
+  }
+
+  .team-card {    
+    margin-right: 10px;
+  }
+
+  .team-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  
+  .spacer {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+  }
+  
+  .team-toolbar {
+    background:transparent;
+    padding: 0px;
+  }

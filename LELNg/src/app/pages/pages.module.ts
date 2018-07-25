@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from '../shared/modules/material.module';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { MaterialModule } from '../shared/modules/material.module';
     FormsModule,
     RouterModule
   ],
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, TeamComponent],
   providers: []
 })
 export class PagesModule { }

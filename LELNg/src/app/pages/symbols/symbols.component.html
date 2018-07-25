@@ -24,8 +24,11 @@
                 <button mat-icon-button mat-primary color="primary" matTooltip="Comments" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-comment"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" matTooltip="Like" >
+                <button mat-icon-button mat-primary color="primary" matTooltip="Like" (click)="like(symbol)" >
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-up"></mat-icon>
+                </button>
+                <button mat-icon-button mat-primary color="primary" matTooltip="Dislike" (click)="disLike(symbol)" >
+                        <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-down"></mat-icon>
                 </button>
             </mat-card-actions>
         </mat-card>        

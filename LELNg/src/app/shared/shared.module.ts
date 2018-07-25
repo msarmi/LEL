@@ -7,10 +7,11 @@ import { DerpPipe } from './pipes/derp-pipe';
 import { SymbolsService } from './services/symbols/symbols.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { ThemingService } from './services/theming/theming.service';
+import { SymbolsLikeService } from './services/symbols-like/symbols-like.service';
 
 @NgModule({
     imports: [CommonModule],
-    providers: [LelProjectsService, SymbolsService, AuthenticationService, ThemingService],
+    providers: [LelProjectsService, SymbolsService, AuthenticationService, ThemingService, SymbolsLikeService],
     declarations: [KeysPipe, DerpPipe],
     exports: [KeysPipe, DerpPipe]
 })
