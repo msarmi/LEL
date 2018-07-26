@@ -39,7 +39,7 @@ namespace LELApi.Controllers
         {
             var project = this._context.Set<LELProject>()
             .Include(aProject => aProject.Team)
-            .ThenInclude(aTeam => aTeam.User).FirstOrDefault(aTeam => aTeam.Id == id);
+            .ThenInclude(teamEntry => teamEntry.User).FirstOrDefault(aTeam => aTeam.Id == id);
             if (project != null)
             {
                 return project.Team;

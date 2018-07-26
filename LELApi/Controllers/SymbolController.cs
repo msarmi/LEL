@@ -52,7 +52,8 @@ namespace LELApi.Controllers
             _context.Set<Synonym>().RemoveRange(symbolDb.Synonyms.Where(syn => !entityWithNewValues.Synonyms.Any(x => x.Id == syn.Id)));
             _context.Set<Notion>().RemoveRange(symbolDb.Notions.Where(noti => !entityWithNewValues.Notions.Any(x => x.Id == noti.Id)));
             _context.Set<BehaviouralResponse>().RemoveRange(symbolDb.BehaviouralResponses.Where(br => !entityWithNewValues.Notions.Any(x => x.Id == br.Id)));
-
+            symbolDb.Name = entityWithNewValues.Name;
+            symbolDb.Category = entityWithNewValues.Category;
             foreach (Synonym syn in entityWithNewValues.Synonyms)
             {
                 if (syn.Id == 0)

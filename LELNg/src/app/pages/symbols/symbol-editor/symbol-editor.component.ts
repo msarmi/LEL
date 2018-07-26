@@ -10,6 +10,7 @@ import { map, startWith } from 'rxjs/operators';
 import { ViewChild } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
+import { ActivatedRoute, Router, RouterStateSnapshot,  Params, RoutesRecognized } from '@angular/router';
 
 @Component({
   selector: 'app-symbol-editor',
@@ -55,18 +56,22 @@ export class SymbolEditorComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
 
+  lelProjectId: number;
   constructor(
+    private router: Router,
     private symbolsService: SymbolsService,
     private authenticationService: AuthenticationService,
-    private lelProjectsService: LelProjectsService) {
+    private lelProjectsService: LelProjectsService) {          
   }
 
   ngOnInit() {
+    this.lelProjectId = +this.router.url.split('/')[2];
     if (this.canSave === undefined) {
       this.canSave = true;
     }
     if (this.isModeNew()) {
-      this.symbol = new Symbol();
+      this.symbol = new Symbol();      
+      this.symbol.lelProjectId = this.lelProjectId;
       this.symbol.authorId = this.authenticationService.getUser().id;
     } else {
       this.symbolsService.get(this.symbolId)
@@ -107,8 +112,10 @@ export class SymbolEditorComponent implements OnInit {
         );
     } else {
       this.symbolsService.update(this.symbol)
-        .subscribe(response =>
+        .subscribe(response => {
+          console.log(response);
           this.saved.emit(response)
+        }
         );
     }
   }

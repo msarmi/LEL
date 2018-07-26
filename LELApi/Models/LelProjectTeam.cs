@@ -7,8 +7,7 @@ namespace LELApi.Models
 {
     public class LelProjectTeam
     {
-        public long Id { get; set; }
-        public long LeLProjectId { get; set; }
+        public long LelProjectId { get; set; }
         public LELProject LelProject { get; set; }
         public long UserId { get; set; }
         public User User { get; set; }

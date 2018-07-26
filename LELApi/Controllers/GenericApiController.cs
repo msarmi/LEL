@@ -54,8 +54,16 @@ namespace LELApi.Controllers
         }
 
         [HttpDelete("api/[controller]/{id}")]
-        public virtual void Delete(int id)
+        public virtual IActionResult Delete(int id)
         {
+            var entity = _context.Set<TEntity>().FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            _context.Set<TEntity>().Remove(entity);
+            _context.SaveChanges();
+            return Ok();
         }
 
         [HttpPost("api/[controller]")]

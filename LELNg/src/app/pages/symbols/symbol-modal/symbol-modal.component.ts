@@ -5,8 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   templateUrl: './symbol-modal.component.html',
   styleUrls: ['./symbol-modal.component.scss']
 })
-export class SymbolModalComponent implements OnInit {
-
+export class SymbolModalComponent implements OnInit {  
   symbolId: number;
   relatedSymbolId: number;
   constructor(
@@ -17,8 +16,9 @@ export class SymbolModalComponent implements OnInit {
     this.symbolId = this.data.symbolId;
   }
 
-  saved(symbol: Symbol) {
-    this.dialogRef.close(symbol);
+  saved($event: Symbol) {
+    console.log($event);
+    this.dialogRef.close($event);
   }
 
   canceled() {
