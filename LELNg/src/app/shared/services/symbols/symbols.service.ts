@@ -26,21 +26,21 @@ export class SymbolsService {
   update(symbol: Symbol): Observable<Symbol> {
     return this.http.put<Symbol>(`${this.symbolUrl}/${symbol.id}/`, symbol)
                     .pipe(
-                      tap(response => console.log('symbol'))
+                      tap(response => console.log(`symbol ${symbol.id} updated`))
                     );
   }
 
   save(symbol: Symbol): Observable<Symbol> {
     return this.http.post<Symbol>(this.symbolUrl, symbol)
     .pipe(
-      tap(response => console.log('symbol'))
+      tap(response => console.log(`symbol ${symbol.id} saved`))
     );
   }
 
   remove(symbol: Symbol) {
-    return this.http.delete<Symbol>(`${this.symbolUrl}/${symbol.id}/`)
+    return this.http.delete(`${this.symbolUrl}/${symbol.id}/`)
     .pipe(
-      tap(response => console.log('symbol'))
+      tap(response => console.log(`symbol ${symbol.id} removed`))
     );
   }
 

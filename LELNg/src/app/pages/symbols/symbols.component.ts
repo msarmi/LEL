@@ -66,7 +66,7 @@ export class SymbolsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       
       if(result){
-        this.symbolsService.remove(symbol);
+        this.symbolsService.remove(symbol).subscribe(result => result);
       }
 
     });

@@ -48,13 +48,14 @@ namespace LELApi.Controllers
 
             TEntity dbEntityMapped = this.MapOnUpdate(entity);
 
+
             _context.Update(dbEntityMapped);
             _context.SaveChanges();
             return new ObjectResult(dbEntityMapped);
         }
 
         [HttpDelete("api/[controller]/{id}")]
-        public virtual IActionResult Delete(int id)
+        public virtual IActionResult Delete(long id)
         {
             var entity = _context.Set<TEntity>().FirstOrDefault(t => ((IEntity<TId>)t).Id.Equals(id));
             if (entity == null)
