@@ -14,6 +14,7 @@ namespace LELApi.Models
             Synonyms = new List<Synonym>();
             Notions = new List<Notion>();
             BehaviouralResponses = new List<BehaviouralResponse>();
+            Comments = new List<SymbolComment>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
@@ -46,6 +47,7 @@ namespace LELApi.Models
         public virtual ICollection<Synonym> Synonyms { get; set; }
         public virtual ICollection<Notion> Notions { get; set; }
         public virtual ICollection<BehaviouralResponse> BehaviouralResponses { get; set; }
+        public virtual ICollection<SymbolComment> Comments { get; set; }
 
         // 	public Symbol merge(Symbol anotherSymbol)
         // 	{

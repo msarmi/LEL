@@ -11,6 +11,7 @@ import { ViewChild } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
 import { ActivatedRoute, Router, RouterStateSnapshot,  Params, RoutesRecognized } from '@angular/router';
+import { SymbolComment } from '../../../shared/models/symbol-comment';
 
 @Component({
   selector: 'app-symbol-editor',
@@ -40,6 +41,9 @@ export class SymbolEditorComponent implements OnInit {
   newNotion: string;
   newNotionCursorIndex: number;
   newBehaviouralResponse: string;
+  newBehaviouralResponseCursorIndex: number;
+
+  newComment: string;
 
   visible: true;
   selectable: true;
@@ -49,11 +53,14 @@ export class SymbolEditorComponent implements OnInit {
   separatorKeysCodes = [ENTER, COMMA];
 
   notionControl = new FormControl();
+  behaviouralResponseControl = new FormControl();
 
   symbols: Symbol[];
   options: string[] = [];
 
   filteredOptions: Observable<string[]>;
+  filteredOptionsBehaviouralResponse: Observable<string[]>;
+
   @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
 
   lelProjectId: number;
@@ -94,7 +101,14 @@ export class SymbolEditorComponent implements OnInit {
         startWith(''),
         map(val => this.filter(val))
       );
+    this.filteredOptionsBehaviouralResponse = this.behaviouralResponseControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => this.filter(val))
+      );
   }
+
+  
 
   isModeNew(): boolean {
     return !this.symbolId;
@@ -149,7 +163,7 @@ export class SymbolEditorComponent implements OnInit {
     } else if ((this.newNotion || '').trim()) {
       const notion = new Notion();
       notion.expression = this.replaceTagsWithJSON(this.newNotion.trim());
-      notion.authorId = 1;
+      notion.authorId = this.authenticationService.getUser().id;
       this.symbol.notions.push(notion);
       this.newNotion = null;
     }
@@ -169,11 +183,23 @@ export class SymbolEditorComponent implements OnInit {
 
   }
 
-  addBehaviouralResponse(): void {
+ /* addBehaviouralResponse(): void {
     if ((this.newBehaviouralResponse || '').trim()) {
       const behaviouralResponse = new BehaviouralResponse();
       behaviouralResponse.expression = this.newBehaviouralResponse.trim();
       behaviouralResponse.authorId = 1;
+      this.symbol.behaviouralResponses.push(behaviouralResponse);
+      this.newBehaviouralResponse = null;
+    }
+  } */
+
+  addBehaviouralResponse(event): void {
+    if (this.trigger.autocomplete.isOpen) {
+      this.trigger._handleKeydown(event);
+    } else if ((this.newBehaviouralResponse || '').trim()) {
+      const behaviouralResponse = new BehaviouralResponse();
+      behaviouralResponse.expression = this.replaceTagsWithJSON(this.newBehaviouralResponse.trim());
+      behaviouralResponse.authorId = this.authenticationService.getUser().id;
       this.symbol.behaviouralResponses.push(behaviouralResponse);
       this.newBehaviouralResponse = null;
     }
@@ -184,6 +210,27 @@ export class SymbolEditorComponent implements OnInit {
 
     if (index >= 0) {
       this.symbol.behaviouralResponses.splice(index, 1);
+    }
+    // to prevent bubbleing
+    return false;
+  }
+
+  addComment(event): void{
+    if ((this.newComment || '').trim()) {
+      const comment = new SymbolComment();
+      //behaviouralResponse.expression = this.replaceTagsWithJSON(this.newBehaviouralResponse.trim());
+      comment.content= "Un comentario hardcode ";
+      comment.authorId = this.authenticationService.getUser().id;
+      this.symbol.comments.push(comment);
+      this.newComment = null;
+    }
+  }
+
+  removeComment(comment: SymbolComment): boolean{
+    const index = this.symbol.comments.indexOf(comment);
+
+    if (index >= 0) {
+      this.symbol.comments.splice(index, 1);
     }
     // to prevent bubbleing
     return false;
@@ -203,6 +250,13 @@ export class SymbolEditorComponent implements OnInit {
     return '';
   }
 
+  getCommentsDescription(): string{
+    if ((this.symbol.comments.length)) {
+      return `${this.symbol.comments.length.toString()} expression${this.symbol.comments.length > 1 ? 's' : ''}`;
+    }
+    return '';
+  }
+
   notionSymbolSelected(event: MatAutocompleteSelectedEvent) {
     if (this.newNotion) {
       const subStringInput = this.newNotion.substring(0, this.newNotionCursorIndex);
@@ -214,6 +268,20 @@ export class SymbolEditorComponent implements OnInit {
       this.newNotion = replaced + this.newNotion.substring(this.newNotionCursorIndex);
     } else {
       this.newNotion = event.option.value;
+    }
+  }
+
+  behaviouralResponseSymbolSelected(event: MatAutocompleteSelectedEvent) {
+    if (this.newBehaviouralResponse) {
+      const subStringInput = this.newBehaviouralResponse.substring(0, this.newBehaviouralResponseCursorIndex);
+      const splitted = subStringInput.split(' ');
+      splitted.pop();
+      splitted.push(event.option.value);
+      const replaced = splitted.join(' ');
+
+      this.newBehaviouralResponse = replaced + this.newBehaviouralResponse.substring(this.newBehaviouralResponseCursorIndex);
+    } else {
+      this.newBehaviouralResponse = event.option.value;
     }
   }
 
@@ -238,6 +306,26 @@ export class SymbolEditorComponent implements OnInit {
         this.trigger.openPanel();
       } else {
         this.notionControl.setValue('');
+        this.trigger.closePanel();
+      }
+    }
+  }
+
+  behaviouralResponseInputChange(event) {
+    if (event.currentTarget.value &&
+      event.currentTarget.selectionEnd ===
+      event.currentTarget.selectionStart &&
+      event.keyCode !== 13
+    ) {
+      this.newBehaviouralResponseCursorIndex = event.currentTarget.selectionEnd;
+      const subStringInput = event.currentTarget.value.substring(0, this.newBehaviouralResponseCursorIndex);
+      const splitted = subStringInput.split(' ');
+      const lastSymbol = splitted.slice(-1)[0];
+      if (lastSymbol.startsWith('#')) {
+        this.behaviouralResponseControl.setValue(lastSymbol);
+        this.trigger.openPanel();
+      } else {
+        this.behaviouralResponseControl.setValue('');
         this.trigger.closePanel();
       }
     }

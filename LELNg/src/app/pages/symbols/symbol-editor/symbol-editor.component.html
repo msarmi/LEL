@@ -64,6 +64,7 @@
               </mat-autocomplete>
             </mat-form-field>
         </mat-expansion-panel>
+
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -71,20 +72,58 @@
             </mat-panel-title>
             <mat-panel-description>{{ getBehaviouralResponsesDescription() }}</mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-nav-list dense>
-            <mat-list-item *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
-              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeBehaviouralResponse(behaviouralResponse)">
+          <ul>
+            <li *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
+              <a mat-icon-button mat-primary color="primary" (click)="removeBehaviouralResponse(behaviouralResponse)">
                 <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
               </a>
-              {{ behaviouralResponse.expression }}
+              <ng-container *ngFor="let word of getParsedExpression(behaviouralResponse.expression)">                
+                <a *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
+                <ng-template #showText>
+                  {{ word + ' ' }}
+                </ng-template>
+              </ng-container>                 
+            </li>
+          </ul>
+          <mat-form-field class="full-width">
+           <!-- <input matInput placeholder="Add a new expression to Behavioural Response" (keyup.enter)="addBehaviouralResponse()" name="behaviouralResponse"
+              [(ngModel)]="newBehaviouralResponse"> -->
+              <input matInput placeholder="behaviouralResponse" (keyup.enter)="addBehaviouralResponse($event)" (keyup.arrowup)="trigger._handleKeydown($event)"  
+              (keyup.arrowdown)="trigger._handleKeydown($event)" (keyup)="behaviouralResponseInputChange($event)" name="behaviouralResponse" [(ngModel)]="newBehaviouralResponse"
+              matAutocompleteOrigin
+              #autoCompleteBehaviouralResponseOrigin="matAutocompleteOrigin" >
+          </mat-form-field>
+          <mat-form-field class="full-width" [style.display]="'none'" >  
+              <input matInput [formControl]="behaviouralResponseControl" [matAutocomplete]="autoBehaviouralResponse" [matAutocompleteConnectedTo]="autoCompleteBehaviouralResponseOrigin">
+              <mat-autocomplete #autoBehaviouralResponse="matAutocomplete" (optionSelected)="behaviouralResponseSymbolSelected($event)">
+                  <mat-option *ngFor="let optionBehaviouralResponse of filteredOptionsBehaviouralResponse | async " [value]="optionBehaviouralResponse">
+                    {{ optionBehaviouralResponse }}
+                  </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Comments
+            </mat-panel-title>
+            <mat-panel-description>{{ getCommentsDescription() }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-nav-list dense>
+            <mat-list-item *ngFor="let comment of symbol.comments">
+              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeComment(comment)">
+                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+              </a>
+              {{ comment.content }}
             </mat-list-item>
           </mat-nav-list>
           <mat-form-field class="full-width">
-            <input matInput placeholder="Add a new expression to Behavioural Response" (keyup.enter)="addBehaviouralResponse()" name="behaviouralResponse"
-              [(ngModel)]="newBehaviouralResponse">
+            <input matInput placeholder="Add a new comment to Symbol " (keyup.enter)="addComment()" name="comment"
+              [(ngModel)]="newComment">
           </mat-form-field>
-
         </mat-expansion-panel>
+
       </mat-accordion>
     </form>
   </mat-card-content>

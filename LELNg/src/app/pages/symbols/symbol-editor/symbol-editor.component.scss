@@ -7,11 +7,14 @@
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
 
-  mat-dialog-content {
-    margin: 0;
-    padding: 20px;
-    overflow-x: hidden;
-  }
+.modal-container {
+    display: flex;
+    padding: 10px;
+}
+
+.symbol-panel{
+  width: 50%;
+}
 
   .mat-dialog-actions:last-child {
     margin-bottom: 0;
@@ -19,6 +22,7 @@
 
   .form {
     width: 100%;
+    
   }
   
   .full-width {

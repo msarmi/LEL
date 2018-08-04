@@ -1,4 +1,5 @@
 import { BehaviouralResponse, Notion, LELProject, Synonym, Category, User } from './index';
+import { SymbolComment } from './symbol-comment';
 
 export class Symbol {
     id: number;
@@ -11,10 +12,12 @@ export class Symbol {
     synonyms: Synonym[];
     notions: Notion[];
     behaviouralResponses: BehaviouralResponse[];
+    comments: SymbolComment[];
 
     constructor() {
         this.synonyms = [];
         this.notions = [];
         this.behaviouralResponses = [];
+        this.comments= [];
     }
 }
