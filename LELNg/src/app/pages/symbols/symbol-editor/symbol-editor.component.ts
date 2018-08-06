@@ -7,11 +7,12 @@ import { AuthenticationService } from '../../../shared/services/authentication/a
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ViewChild } from '@angular/core';
+import { ViewChildren } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
 import { ActivatedRoute, Router, RouterStateSnapshot,  Params, RoutesRecognized } from '@angular/router';
 import { SymbolComment } from '../../../shared/models/symbol-comment';
+import { QueryList } from '@angular/core';
 
 @Component({
   selector: 'app-symbol-editor',
@@ -61,7 +62,7 @@ export class SymbolEditorComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   filteredOptionsBehaviouralResponse: Observable<string[]>;
 
-  @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
+  @ViewChildren(MatAutocompleteTrigger) triggerCollection: QueryList<MatAutocompleteTrigger>;  
 
   lelProjectId: number;
   constructor(
@@ -157,9 +158,9 @@ export class SymbolEditorComponent implements OnInit {
     }
   }
 
-  addNotion(event): void {
-    if (this.trigger.autocomplete.isOpen) {
-      this.trigger._handleKeydown(event);
+  addNotion(event): void {    
+    if (this.getTrigger(true).autocomplete.isOpen) {
+      this.getTrigger(true)._handleKeydown(event);
     } else if ((this.newNotion || '').trim()) {
       const notion = new Notion();
       notion.expression = this.replaceTagsWithJSON(this.newNotion.trim());
@@ -183,19 +184,9 @@ export class SymbolEditorComponent implements OnInit {
 
   }
 
- /* addBehaviouralResponse(): void {
-    if ((this.newBehaviouralResponse || '').trim()) {
-      const behaviouralResponse = new BehaviouralResponse();
-      behaviouralResponse.expression = this.newBehaviouralResponse.trim();
-      behaviouralResponse.authorId = 1;
-      this.symbol.behaviouralResponses.push(behaviouralResponse);
-      this.newBehaviouralResponse = null;
-    }
-  } */
-
-  addBehaviouralResponse(event): void {
-    if (this.trigger.autocomplete.isOpen) {
-      this.trigger._handleKeydown(event);
+  addBehaviouralResponse(event): void {        
+    if (this.getTrigger(false).autocomplete.isOpen) {
+      this.getTrigger(false)._handleKeydown(event);
     } else if ((this.newBehaviouralResponse || '').trim()) {
       const behaviouralResponse = new BehaviouralResponse();
       behaviouralResponse.expression = this.replaceTagsWithJSON(this.newBehaviouralResponse.trim());
@@ -303,10 +294,10 @@ export class SymbolEditorComponent implements OnInit {
       const lastSymbol = splitted.slice(-1)[0];
       if (lastSymbol.startsWith('#')) {
         this.notionControl.setValue(lastSymbol);
-        this.trigger.openPanel();
+        this.getTrigger(true).openPanel();
       } else {
         this.notionControl.setValue('');
-        this.trigger.closePanel();
+        this.getTrigger(true).closePanel();
       }
     }
   }
@@ -323,10 +314,10 @@ export class SymbolEditorComponent implements OnInit {
       const lastSymbol = splitted.slice(-1)[0];
       if (lastSymbol.startsWith('#')) {
         this.behaviouralResponseControl.setValue(lastSymbol);
-        this.trigger.openPanel();
+        this.getTrigger(false).openPanel();
       } else {
         this.behaviouralResponseControl.setValue('');
-        this.trigger.closePanel();
+        this.getTrigger(false).closePanel();
       }
     }
   }
@@ -374,5 +365,14 @@ export class SymbolEditorComponent implements OnInit {
 
   relatedSymbolSelected(symbolId: number) {
     this.loadRelatedSymbol.emit(symbolId);
+  }
+
+  getTrigger(isNotionTrigger: boolean) : MatAutocompleteTrigger {
+    if (isNotionTrigger) {
+      return this.triggerCollection.toArray()[0];
+    }
+    else {
+      return this.triggerCollection.toArray()[1];
+    }    
   }
 }

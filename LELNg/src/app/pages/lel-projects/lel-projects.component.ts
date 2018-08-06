@@ -60,7 +60,10 @@ export class LelProjectsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       
       if(result){
-        this.lelProjectsService.remove(lelProject);
+        this.lelProjectsService.remove(lelProject).subscribe(response => {
+          this.dataSource = new LELProjectsDataSource(this.lelProjectsService, this.paginator, this.sort);          
+          return response;
+         });
       }
 
     });

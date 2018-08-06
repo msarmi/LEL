@@ -45,10 +45,11 @@
             <mat-form-field class="full-width">
               <input 
               matInput
+              #matAutoCompleteNotionTrigger
                placeholder="notion" 
                (keyup.enter)="addNotion($event)" 
-               (keyup.arrowup)="trigger._handleKeydown($event)"     
-               (keyup.arrowdown)="trigger._handleKeydown($event)"               
+               (keyup.arrowup)="getTrigger(true)._handleKeydown($event)"     
+               (keyup.arrowdown)="getTrigger(true)._handleKeydown($event)"               
                (keyup)="notionInputChange($event)" 
                name="pruebanotion" 
                [(ngModel)]="newNotion" 
@@ -86,11 +87,11 @@
             </li>
           </ul>
           <mat-form-field class="full-width">
-           <!-- <input matInput placeholder="Add a new expression to Behavioural Response" (keyup.enter)="addBehaviouralResponse()" name="behaviouralResponse"
-              [(ngModel)]="newBehaviouralResponse"> -->
-              <input matInput placeholder="behaviouralResponse" (keyup.enter)="addBehaviouralResponse($event)" (keyup.arrowup)="trigger._handleKeydown($event)"  
-              (keyup.arrowdown)="trigger._handleKeydown($event)" (keyup)="behaviouralResponseInputChange($event)" name="behaviouralResponse" [(ngModel)]="newBehaviouralResponse"
+              <input 
+              matInput placeholder="behaviouralResponse" (keyup.enter)="addBehaviouralResponse($event)" (keyup.arrowup)="getTrigger(false)._handleKeydown($event)"  
+              (keyup.arrowdown)="getTrigger(false)._handleKeydown($event)" (keyup)="behaviouralResponseInputChange($event)" name="behaviouralResponse" [(ngModel)]="newBehaviouralResponse"
               matAutocompleteOrigin
+              #matAutoCompleteBehaviouralResponseTrigger
               #autoCompleteBehaviouralResponseOrigin="matAutocompleteOrigin" >
           </mat-form-field>
           <mat-form-field class="full-width" [style.display]="'none'" >  
