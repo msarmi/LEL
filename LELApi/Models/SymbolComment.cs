@@ -20,9 +20,9 @@ namespace LELApi.Models
 
         public virtual User User { get; set; }
 
-        public long SymbolCommentId { get; set; }
+        public long? SymbolCommentId { get; set; }
 
         public virtual SymbolComment SymbolCommentReply { get; set; }
-        
+
     }
 }

@@ -25,7 +25,7 @@
           <ul>
             <li *ngFor="let notion of symbol.notions">
               <ng-container *ngFor="let word of getParsedExpression(notion.expression)">
-                <a *ngIf="word.name; else showText" color="accent" class="link" (click)="symbolId = word.id">{{ '#' + word.name + ' ' }}</a>                <ng-template #showText>
+                <a *ngIf="word.name; else showText" class="mylink" (click)="symbolId = word.id">{{ '#' + word.name + ' ' }}</a>                <ng-template #showText>
                   {{ word + ' ' }}
                 </ng-template>
               </ng-container>
@@ -39,11 +39,15 @@
             </mat-panel-title>
             <mat-panel-description>{{ getBehaviouralResponsesDescription() }}</mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-nav-list dense>
-            <mat-list-item *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
-              {{ behaviouralResponse.expression }}
-            </mat-list-item>
-          </mat-nav-list>
+          <ul>
+            <li *ngFor="let behaviouralResponse of symbol.behaviouralResponses">
+              <ng-container *ngFor="let word of getParsedExpression(behaviouralResponse.expression)">
+                <a *ngIf="word.name; else showText" class="mylink" (click)="symbolId = word.id">{{ '#' + word.name + ' ' }}</a>                <ng-template #showText>
+                  {{ word + ' ' }}
+                </ng-template>
+              </ng-container>
+            </li>
+          </ul>
         </mat-expansion-panel>
       </mat-accordion>
     </form>

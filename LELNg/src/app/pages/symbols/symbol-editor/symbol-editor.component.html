@@ -35,7 +35,7 @@
                       <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                   </a>
                   <ng-container *ngFor="let word of getParsedExpression(notion.expression)">                
-                      <a *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
+                      <a *ngIf="word.name; else showText" id="linkToSymbol" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
                       <ng-template #showText>
                         {{ word + ' ' }}
                       </ng-template>
@@ -79,7 +79,7 @@
                 <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
               </a>
               <ng-container *ngFor="let word of getParsedExpression(behaviouralResponse.expression)">                
-                <a *ngIf="word.name; else showText" color="accent" class="link" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
+                <a *ngIf="word.name; else showText" id="linkToSymbol2" (click)="relatedSymbolSelected(word.id)">{{ '#' + word.name + ' ' }}</a>
                 <ng-template #showText>
                   {{ word + ' ' }}
                 </ng-template>
@@ -113,8 +113,11 @@
           </mat-expansion-panel-header>
           <mat-nav-list dense>
             <mat-list-item *ngFor="let comment of symbol.comments">
-              <a mat-icon-button mat-primary color="primary" class="list-icon" (click)="removeComment(comment)">
+              <a mat-icon-button mat-primary color="primary" class="list-icon" matTooltip="Delete comment" (click)="removeComment(comment)">
                 <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+              </a>
+              <a mat-icon-button mat-primary color="primary" class="list-icon"  matTooltip="Reply" (click)="replyComment(comment)">
+                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
               </a>
               {{ comment.content }}
             </mat-list-item>

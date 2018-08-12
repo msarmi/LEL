@@ -37,9 +37,9 @@ export class SymbolsComponent implements OnInit {
   openSymbolEditor(symbolId: number): void {
     const dialogRef = this.dialog.open(SymbolModalComponent, {
       data: { symbolId: symbolId },
-      width: '800px',
-      height: '80%'
-    });
+      width: '80%',
+      height: '80%',
+  });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

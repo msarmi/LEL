@@ -209,9 +209,9 @@ export class SymbolEditorComponent implements OnInit {
   addComment(event): void{
     if ((this.newComment || '').trim()) {
       const comment = new SymbolComment();
-      //behaviouralResponse.expression = this.replaceTagsWithJSON(this.newBehaviouralResponse.trim());
-      comment.content= "Un comentario hardcode ";
-      comment.authorId = this.authenticationService.getUser().id;
+      comment.content= this.newComment;
+      comment.userId = this.authenticationService.getUser().id;
+      comment.symbolId= this.symbol.id;
       this.symbol.comments.push(comment);
       this.newComment = null;
     }
@@ -225,6 +225,10 @@ export class SymbolEditorComponent implements OnInit {
     }
     // to prevent bubbleing
     return false;
+  }
+
+  replyComment(comment: SymbolComment) {
+
   }
 
   getBehaviouralResponsesDescription(): string {

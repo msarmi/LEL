@@ -16,6 +16,10 @@
   width: 50%;
 }
 
+li{
+  word-wrap: break-word;
+}
+
   .mat-dialog-actions:last-child {
     margin-bottom: 0;
   }
@@ -29,9 +33,9 @@
     width: 100%;
   }  
 
-  .link {
+  #linkToSymbol, #linkToSymbol2 {
     cursor: pointer;
-    color: mat-color($accent);
+    color: darkgreen;
   }
 
   ul {

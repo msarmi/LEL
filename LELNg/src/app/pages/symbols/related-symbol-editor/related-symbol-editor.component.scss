@@ -13,6 +13,10 @@
     overflow-x: hidden;
   }
 
+  li{
+    word-wrap: break-word;
+  }
+
   .mat-dialog-actions:last-child {
     margin-bottom: 0;
   }
@@ -25,9 +29,9 @@
     width: 100%;
   }  
 
-  .link {
+  .mylink{
     cursor: pointer;
-    color: mat-color($accent);
+    color: darkgreen;
   }
 
   ul {
