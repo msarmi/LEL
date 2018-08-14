@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Category, Symbol, Synonym, Notion, BehaviouralResponse } from '../../../shared/models/index';
 import { SymbolsService } from '../../../shared/services/symbols/symbols.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatChipInputEvent, MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -10,9 +10,10 @@ import { map, startWith } from 'rxjs/operators';
 import { ViewChildren } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material';
 import { LelProjectsService } from '../../../shared/services/lel-projects/lel-projects.service';
-import { ActivatedRoute, Router, RouterStateSnapshot,  Params, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot, Params, RoutesRecognized } from '@angular/router';
 import { SymbolComment } from '../../../shared/models/symbol-comment';
 import { QueryList } from '@angular/core';
+import { SymbolCommentsComponent } from '../symbol-comments/symbol-comments.component';
 
 @Component({
   selector: 'app-symbol-editor',
@@ -62,14 +63,15 @@ export class SymbolEditorComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   filteredOptionsBehaviouralResponse: Observable<string[]>;
 
-  @ViewChildren(MatAutocompleteTrigger) triggerCollection: QueryList<MatAutocompleteTrigger>;  
+  @ViewChildren(MatAutocompleteTrigger) triggerCollection: QueryList<MatAutocompleteTrigger>;
 
   lelProjectId: number;
   constructor(
     private router: Router,
     private symbolsService: SymbolsService,
     private authenticationService: AuthenticationService,
-    private lelProjectsService: LelProjectsService) {          
+    private lelProjectsService: LelProjectsService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -78,25 +80,25 @@ export class SymbolEditorComponent implements OnInit {
       this.canSave = true;
     }
     if (this.isModeNew()) {
-      this.symbol = new Symbol();      
+      this.symbol = new Symbol();
       this.symbol.lelProjectId = this.lelProjectId;
       this.symbol.authorId = this.authenticationService.getUser().id;
     } else {
       this.symbolsService.get(this.symbolId)
-        .subscribe(
-          (response) => {
-            this.symbol = response;
-            this.lelProjectsService.getLelProjectSymbols(response.lelProjectId).subscribe(
-              (symbols) => {
-                this.symbols = symbols;
-                this.symbols.forEach(
-                  (sym) => this.options.push('#' + sym.name)
-                );
-              }
-            );
-          }
+        .subscribe( (response) => {
+          this.symbol = response;
+        }
         );
     }
+    this.lelProjectsService.getLelProjectSymbols(this.lelProjectId).subscribe(
+      (symbols) => {
+        this.symbols = symbols;
+        this.symbols.forEach(
+          (sym) => this.options.push('#' + sym.name)
+        );
+      }
+    );
+    
     this.filteredOptions = this.notionControl.valueChanges
       .pipe(
         startWith(''),
@@ -109,7 +111,7 @@ export class SymbolEditorComponent implements OnInit {
       );
   }
 
-  
+
 
   isModeNew(): boolean {
     return !this.symbolId;
@@ -158,7 +160,7 @@ export class SymbolEditorComponent implements OnInit {
     }
   }
 
-  addNotion(event): void {    
+  addNotion(event): void {
     if (this.getTrigger(true).autocomplete.isOpen) {
       this.getTrigger(true)._handleKeydown(event);
     } else if ((this.newNotion || '').trim()) {
@@ -184,7 +186,7 @@ export class SymbolEditorComponent implements OnInit {
 
   }
 
-  addBehaviouralResponse(event): void {        
+  addBehaviouralResponse(event): void {
     if (this.getTrigger(false).autocomplete.isOpen) {
       this.getTrigger(false)._handleKeydown(event);
     } else if ((this.newBehaviouralResponse || '').trim()) {
@@ -206,18 +208,18 @@ export class SymbolEditorComponent implements OnInit {
     return false;
   }
 
-  addComment(event): void{
+  addComment(event): void {
     if ((this.newComment || '').trim()) {
       const comment = new SymbolComment();
-      comment.content= this.newComment;
+      comment.content = this.newComment;
       comment.userId = this.authenticationService.getUser().id;
-      comment.symbolId= this.symbol.id;
+      comment.symbolId = this.symbol.id;
       this.symbol.comments.push(comment);
       this.newComment = null;
     }
   }
 
-  removeComment(comment: SymbolComment): boolean{
+  removeComment(comment: SymbolComment): boolean {
     const index = this.symbol.comments.indexOf(comment);
 
     if (index >= 0) {
@@ -245,7 +247,7 @@ export class SymbolEditorComponent implements OnInit {
     return '';
   }
 
-  getCommentsDescription(): string{
+  getCommentsDescription(): string {
     if ((this.symbol.comments.length)) {
       return `${this.symbol.comments.length.toString()} expression${this.symbol.comments.length > 1 ? 's' : ''}`;
     }
@@ -371,12 +373,26 @@ export class SymbolEditorComponent implements OnInit {
     this.loadRelatedSymbol.emit(symbolId);
   }
 
-  getTrigger(isNotionTrigger: boolean) : MatAutocompleteTrigger {
+  getTrigger(isNotionTrigger: boolean): MatAutocompleteTrigger {
     if (isNotionTrigger) {
       return this.triggerCollection.toArray()[0];
     }
     else {
       return this.triggerCollection.toArray()[1];
-    }    
+    }
   }
+
+
+  openSymbolComments() : void{
+    const dialogRef = this.dialog.open(SymbolCommentsComponent, {
+      data: { symbol: this.symbol },
+      width: '60%',
+      height: '60%',
+  });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
 }

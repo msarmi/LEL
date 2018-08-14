@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SymbolModalComponent } from './symbol-modal/symbol-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedSymbolEditorComponent } from './related-symbol-editor/related-symbol-editor.component';
+import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,9 @@ import { RelatedSymbolEditorComponent } from './related-symbol-editor/related-sy
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent],
-  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent]
+  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
+  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
+  entryComponents: [SymbolCommentsComponent]
+
 })
 export class SymbolsModule { }
