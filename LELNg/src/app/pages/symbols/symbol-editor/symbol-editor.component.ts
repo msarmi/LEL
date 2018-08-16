@@ -385,7 +385,7 @@ export class SymbolEditorComponent implements OnInit {
 
   openSymbolComments() : void{
     const dialogRef = this.dialog.open(SymbolCommentsComponent, {
-      data: { symbol: this.symbol },
+      data: { symbolComments: this.symbol.comments },
       width: '60%',
       height: '60%',
   });
