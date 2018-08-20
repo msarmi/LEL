@@ -12,7 +12,7 @@ export class SymbolsLikeService {
 
   constructor(private http: HttpClient) { }
 
-  saveOrUpdate(symbolLike: SymbolLike): Observable<SymbolLike> {
+  saveOrUpdate(symbolLike: SymbolLike): Observable<SymbolLike> {    
     return this.http.post<SymbolLike>(this.symbolUrl, symbolLike)
     .pipe(
       tap(response => console.log('symbolLike'))

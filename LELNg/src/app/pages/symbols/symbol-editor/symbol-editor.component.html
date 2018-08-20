@@ -13,7 +13,7 @@
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let synonym of symbol.synonyms" mat-primary selected color="primary" [removable]="true" (remove)="removeSynonym(synonym)">
+          <mat-chip *ngFor="let synonym of symbol.synonyms" mat-primary selected color="primary" [removable]="true" (removed)="removeSynonym(synonym)">
             {{synonym.name}}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>

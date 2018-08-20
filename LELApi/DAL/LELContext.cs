@@ -27,11 +27,16 @@ namespace LELApi.DAL
         public DbSet<Synonym> Synonym { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<SymbolLike> SymbolLike { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<LelProjectTeam>()
                 .HasKey(t => new { t.LelProjectId, t.UserId });
+
+            modelBuilder.Entity<SymbolLike>()
+            .HasOne(p => p.Symbol)
+            .WithMany(b => b.SymbolLikes);
         }
     }
 }

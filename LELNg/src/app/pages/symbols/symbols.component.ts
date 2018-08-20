@@ -74,19 +74,57 @@ export class SymbolsComponent implements OnInit {
   }
 
   like(symbol: Symbol): void {
+    if (this.symbolHasLike(symbol)) return;
+
     const like = new SymbolLike();
     like.authorId = this.authenticationService.getUser().id;
     like.symbolId= symbol.id;
     like.isLike = true; 
-    this.symbolsLikeService.saveOrUpdate(like).subscribe();
+    this.symbolsLikeService.saveOrUpdate(like).subscribe(response => this.refreshSymbol(symbol));
   }
 
   disLike(symbol: Symbol): void {
+    if (this.symbolHasDislike(symbol)) return;
+
     const dislike = new SymbolLike();
     dislike.authorId = this.authenticationService.getUser().id;
     dislike.symbolId= symbol.id;
     dislike.isLike = false; 
-    this.symbolsLikeService.saveOrUpdate(dislike).subscribe();
+    this.symbolsLikeService.saveOrUpdate(dislike).subscribe(response => this.refreshSymbol(symbol));
+  }
+
+  refreshSymbol(symbol: Symbol): void {
+    this.symbolsService.get(symbol.id).subscribe(symbolUpdated => {
+      let index: number;
+      for (var i = 0; i < this.symbols.length; i++) {
+        if (this.symbols[i].id == symbol.id) {
+          index = i;
+          break;
+        }
+      }
+      if (index >= 0) {
+        this.symbols[index] = symbolUpdated;
+      }        
+    });
+  }
+
+  symbolHasLike(symbol: Symbol) : boolean {
+    if (symbol) {
+      for (let like of symbol.symbolLikes.filter(value => value.isLike)) {
+        if (like.authorId === this.authenticationService.getUser().id) 
+          return true;
+      }      
+    }  
+    return false;  
+  }
+
+  symbolHasDislike(symbol: Symbol) : boolean {
+    if (symbol) {
+      for (let like of symbol.symbolLikes.filter(value => !value.isLike)) {
+        if (like.authorId === this.authenticationService.getUser().id) return true;
+      }
+     }
+    return false;
   }
 
 }

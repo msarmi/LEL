@@ -17,16 +17,26 @@
                 <button mat-icon-button mat-primary color="primary" matTooltip="Open symbol editor" (click)="openSymbolEditor(symbol.id)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" matTooltip="Delete" (click)="removeSymbol(symbol)" >
-                        <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                <button mat-icon-button mat-primary color="primary" matTooltip="Delete" (click)="removeSymbol(symbol)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                 </button>
-                <button mat-icon-button mat-primary color="primary" matTooltip="Like" (click)="like(symbol)" >
+                <button *ngIf="symbolHasLike(symbol)" mat-raised-button mat-icon-button mat-primary color="primary" matTooltip="Like" (click)="like(symbol)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-up"></mat-icon>
+                    <span color="warn">{{ symbol.likes }}</span>
                 </button>
-                <button mat-icon-button mat-primary color="primary" matTooltip="Dislike" (click)="disLike(symbol)" >
-                        <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-down"></mat-icon>
+                <button *ngIf="!symbolHasLike(symbol)" mat-icon-button mat-primary color="primary" matTooltip="Like" (click)="like(symbol)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-up"></mat-icon>
+                    <span color="warn">{{ symbol.likes }}</span>
+                </button>
+                <button *ngIf="symbolHasDislike(symbol)" mat-icon-button mat-raised-button mat-primary color="primary" matTooltip="Dislike" (click)="disLike(symbol)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-down"></mat-icon>
+                    <span color="warn">{{ symbol.dislikes }}</span>
+                </button>
+                <button *ngIf="!symbolHasDislike(symbol)" mat-icon-button mat-primary color="primary" matTooltip="Dislike" (click)="disLike(symbol)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-down"></mat-icon>
+                    <span color="warn">{{ symbol.dislikes }}</span>
                 </button>
             </mat-card-actions>
-        </mat-card>        
+        </mat-card>
     </div>
 </div>

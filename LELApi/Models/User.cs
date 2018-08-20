@@ -19,5 +19,6 @@ namespace LELApi.Models
         public virtual string Password { get; set; }
         public virtual byte[] PasswordHash { get; set; }
         public virtual byte[] PasswordSalt { get; set; }
+        //public virtual ICollection<SymbolLike> SymbolLikes { get; set; }
     }
 }

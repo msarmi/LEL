@@ -18,7 +18,10 @@ namespace LELApi.Controllers
         {
             var project = this._context.Set<LELProject>()
             .Include(aProject => aProject.Symbols)
-            .ThenInclude(aSymbol => aSymbol.Synonyms).FirstOrDefault(aSymbol => aSymbol.Id == id);
+                .ThenInclude(aSymbol => aSymbol.Synonyms)
+            .Include(aProject => aProject.Symbols)
+                .ThenInclude(aSymbol => aSymbol.SymbolLikes)
+            .FirstOrDefault(aSymbol => aSymbol.Id == id);
             if (project != null)
             {
                 return project.Symbols;

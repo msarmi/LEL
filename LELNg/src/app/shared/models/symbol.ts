@@ -1,5 +1,6 @@
 import { BehaviouralResponse, Notion, LELProject, Synonym, Category, User } from './index';
 import { SymbolComment } from './symbol-comment';
+import { SymbolLike } from './symbol-like';
 
 export class Symbol {
     id: number;
@@ -13,11 +14,15 @@ export class Symbol {
     notions: Notion[];
     behaviouralResponses: BehaviouralResponse[];
     comments: SymbolComment[];
+    symbolLikes: SymbolLike[];
+    likes: number;
+    dislikes: number;
 
     constructor() {
         this.synonyms = [];
         this.notions = [];
         this.behaviouralResponses = [];
-        this.comments= [];
+        this.comments = [];
+        this.symbolLikes = [];
     }
 }

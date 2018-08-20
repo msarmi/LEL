@@ -13,23 +13,17 @@ namespace LELApi.Controllers
     {
         public SymbolController(LELContext context) : base(context) { }
         //protected override DbSet<Symbol> EntityCollection { get { return _context.Symbol; } }       
-
+        
         [HttpGet("api/[controller]/{id}")]
         public override IActionResult Get(long id)
         {
-            var entity = _context.Set<Symbol>()
-                                 .Include(sym => sym.Synonyms)
-                                 .Include(sym => sym.BehaviouralResponses)
-                                 .Include(sym => sym.Notions)
-                                 .Include(sym => sym.Comments)
-                                 .FirstOrDefault(sym => sym.Id.Equals(id));
+            var entity = _context.Set<Symbol>().Include(symbol => symbol.SymbolLikes).FirstOrDefault(t => t.Id.Equals(id));
             if (entity == null)
             {
                 return NotFound();
             }
             return new ObjectResult(entity);
         }
-
         public override void MapOnCreate(Symbol entity)
         {
             // this is necessary because the symbol doesn't have an id yet.
