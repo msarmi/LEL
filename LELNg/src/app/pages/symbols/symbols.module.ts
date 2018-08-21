@@ -10,6 +10,7 @@ import { SymbolModalComponent } from './symbol-modal/symbol-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedSymbolEditorComponent } from './related-symbol-editor/related-symbol-editor.component';
 import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.component';
+import { SymbolCommentListDatabase } from '../../shared/models/symbol-comment-list-database';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.compo
   ],
   declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
   exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
-  entryComponents: [SymbolCommentsComponent]
+  entryComponents: [SymbolCommentsComponent],
+  providers: [SymbolCommentListDatabase]
 
 })
 export class SymbolsModule { }

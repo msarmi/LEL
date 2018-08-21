@@ -1,3 +1,39 @@
-<p>
-  symbol-comments works!
-</p>
+<mat-dialog-content class="modal-container">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree-panel">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <button mat-icon-button mat-primary color="primary" matTooltip="Delete comment" (click)="removeComment(comment)">
+      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+    </button>
+                  {{node.comment}}
+    <button mat-icon-button mat-primary color="primary" matTooltip="Reply" (click)="addNewItem(node)">
+      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
+    </button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <input matInput #itemValue placeholder="New comment...">
+    </mat-form-field>
+    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'toggle ' + node.comment">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <button mat-icon-button mat-primary color="primary" matTooltip="Delete comment" (click)="removeComment(comment)">
+      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+    </button>
+                  {{node.comment}}
+    <button mat-icon-button mat-primary color="primary" matTooltip="Reply" (click)="addNewItem(node)">
+      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
+    </button>
+  </mat-tree-node>
+
+</mat-tree>
+</mat-dialog-content>

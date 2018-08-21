@@ -1,0 +1,12 @@
+.modal-container {
+    display:flex;
+}
+
+.mat-dialog-container{
+    display:flex;
+}
+
+
+.tree-panel {
+    margin: 5px;
+}
