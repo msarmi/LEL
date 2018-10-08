@@ -104,30 +104,6 @@
           </mat-form-field>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Comments
-            </mat-panel-title>
-            <mat-panel-description>{{ getCommentsDescription() }}</mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-nav-list dense>
-            <mat-list-item *ngFor="let comment of symbol.comments">
-              <a mat-icon-button mat-primary color="primary" class="list-icon" matTooltip="Delete comment" (click)="removeComment(comment)">
-                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
-              </a>
-              <a mat-icon-button mat-primary color="primary" class="list-icon"  matTooltip="Reply" (click)="replyComment(comment)">
-                <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
-              </a>
-              {{ comment.content }}
-            </mat-list-item>
-          </mat-nav-list>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Add a new comment to Symbol " (keyup.enter)="addComment()" name="comment"
-              [(ngModel)]="newComment">
-          </mat-form-field>
-        </mat-expansion-panel>
-
       </mat-accordion>
     </form>
   </mat-card-content>

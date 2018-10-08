@@ -42,6 +42,7 @@ const TREE_DATA = {
       // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
       //     file node as children.
       const data = this.buildFileTree(TREE_DATA, 0);
+      // const jsonReference = `{"id":${symbol.id},"lelProjectId":${symbol.lelProjectId},"name":"${symbolName}"}`;
 
       // Notify the change.
       this.dataChange.next(data);

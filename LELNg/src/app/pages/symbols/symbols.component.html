@@ -1,3 +1,26 @@
+<mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filters
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form class="form">
+        <mat-form-field mat-primary color="primary" class="full-width">
+            <input matInput placeholder="Name" name="name" [(ngModel)]="symbolFilter.name">
+        </mat-form-field>
+        <mat-form-field mat-primary color="primary" class="full-width">
+            <mat-select placeholder="Category" [(value)]="symbolFilter.category">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let item of categories | keys; let i = index" [value]="i">
+                    {{item.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-button mat-primary color="primary" (click)="filter()">Filter</button>
+      </form>
+    </mat-expansion-panel>
+</mat-accordion>
 <mat-toolbar class="symbol-toolbar">
     <span class="spacer"></span>
     <button mat-fab color="primary" matTooltip="Add a new symbol" (click)="openSymbolEditor()">
@@ -5,7 +28,7 @@
     </button>
 </mat-toolbar>
 <div class="flex-container">
-    <div *ngFor="let symbol of symbols; index as i">
+    <div *ngFor="let symbol of symbolsFiltered; index as i">
         <mat-card class="symbol-card mat-elevation-z8">
             <mat-card-content>
                 <mat-card-header>
