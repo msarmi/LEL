@@ -17,7 +17,13 @@ namespace LELApi.Controllers
         [HttpGet("api/[controller]/{id}")]
         public override IActionResult Get(long id)
         {
-            var entity = _context.Set<Symbol>().Include(symbol => symbol.SymbolLikes).FirstOrDefault(t => t.Id.Equals(id));
+            var entity = _context.Set<Symbol>()
+                .Include(sym => sym.Synonyms)
+                .Include(sym => sym.BehaviouralResponses)
+                .Include(sym => sym.Notions)
+                .Include(sym => sym.Comments)
+                .Include(sym => sym.SymbolLikes)
+                .FirstOrDefault(t => t.Id.Equals(id));
             if (entity == null)
             {
                 return NotFound();
@@ -47,10 +53,16 @@ namespace LELApi.Controllers
 
         public override Symbol MapOnUpdate(Symbol entityWithNewValues)
         {
-            var symbolDb = _context.Set<Symbol>().Include(s => s.Synonyms).Include(sym => sym.BehaviouralResponses).Include(sym => sym.Notions).Include(sym => sym.Comments).FirstOrDefault(s => s.Id == entityWithNewValues.Id);
+            var symbolDb = _context.Set<Symbol>()
+                .Include(sym => sym.Synonyms)
+                .Include(sym => sym.BehaviouralResponses)
+                .Include(sym => sym.Notions)
+                .Include(sym => sym.Comments)
+                .Include(sym => sym.SymbolLikes)
+                .FirstOrDefault(s => s.Id == entityWithNewValues.Id);
             _context.Set<Synonym>().RemoveRange(symbolDb.Synonyms.Where(syn => !entityWithNewValues.Synonyms.Any(x => x.Id == syn.Id)));
             _context.Set<Notion>().RemoveRange(symbolDb.Notions.Where(noti => !entityWithNewValues.Notions.Any(x => x.Id == noti.Id)));
-            _context.Set<BehaviouralResponse>().RemoveRange(symbolDb.BehaviouralResponses.Where(br => !entityWithNewValues.Notions.Any(x => x.Id == br.Id)));
+            _context.Set<BehaviouralResponse>().RemoveRange(symbolDb.BehaviouralResponses.Where(br => !entityWithNewValues.BehaviouralResponses.Any(x => x.Id == br.Id)));
             _context.Set<SymbolComment>().RemoveRange(symbolDb.Comments.Where(comment => !entityWithNewValues.Comments.Any(x => x.Id == comment.Id)));
             symbolDb.Name = entityWithNewValues.Name;
             symbolDb.Category = entityWithNewValues.Category;

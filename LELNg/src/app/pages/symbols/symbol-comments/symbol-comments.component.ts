@@ -42,7 +42,7 @@ export class SymbolCommentsComponent implements OnInit {
     public dialogRef: MatDialogRef<SymbolCommentsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private database: SymbolCommentListDatabase) {
-      this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
+      //this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
       this.treeControl = new FlatTreeControl<SymbolCommentFlatNode>(this.getLevel, this.isExpandable);
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 

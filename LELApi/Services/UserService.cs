@@ -94,7 +94,7 @@ namespace LELApi.Services
             user.Name = userParam.Name;
             user.LastName = userParam.LastName;
             user.UserName = userParam.UserName;
-
+            user.Email = userParam.Email;
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))
             {

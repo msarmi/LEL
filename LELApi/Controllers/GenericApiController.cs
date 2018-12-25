@@ -45,12 +45,12 @@ namespace LELApi.Controllers
             {
                 return BadRequest();
             }
-
-            TEntity dbEntityMapped = this.MapOnUpdate(entity);
-
+             TEntity dbEntityMapped = this.MapOnUpdate(entity);
 
             _context.Update(dbEntityMapped);
             _context.SaveChanges();
+
+
             return new ObjectResult(dbEntityMapped);
         }
 
