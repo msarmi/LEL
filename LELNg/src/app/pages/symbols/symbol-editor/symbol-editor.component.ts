@@ -94,7 +94,12 @@ export class SymbolEditorComponent implements OnInit {
       (symbols) => {
         this.symbols = symbols;
         this.symbols.forEach(
-          (sym) => this.options.push('#' + sym.name)
+          (sym) => { 
+            this.options.push(`#${sym.name}`);
+            sym.synonyms.forEach(
+              (synonym) => this.options.push(`#${synonym.name}`)
+            );
+          }
         );
       }
     );
@@ -334,7 +339,16 @@ export class SymbolEditorComponent implements OnInit {
       (word, index, theArray) => {
         if (word.startsWith('#')) {
           const symbolName = word.replace('#', '');
-          const symbol = this.symbols.find((sym) => sym.name === symbolName);
+          let symbol = this.symbols.find((sym) => sym.name === symbolName);
+          if (!symbol) {
+            for (let sym of this.symbols) {
+              const synonym = sym.synonyms.find(synon => synon.name === symbolName);
+              if (synonym) {
+                symbol = this.symbols.find((sym) => sym.id === synonym.symbolId);                
+                break;
+              }
+            }
+          }
           const jsonReference = `{"id":${symbol.id},"lelProjectId":${symbol.lelProjectId},"name":"${symbolName}"}`;
           theArray[index] = jsonReference;
         }

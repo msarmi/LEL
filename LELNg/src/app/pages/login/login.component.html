@@ -5,7 +5,7 @@
       <mat-card class="card">
         <mat-card-title>Login</mat-card-title>
         <mat-card-content>
-          <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>            
+          <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>            
             <mat-form-field mat-primary color="primary" [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="full-width" >
               <input matInput placeholder="Username" [(ngModel)]="model.username"  name="username" #username="ngModel" required>
               <mat-error *ngIf="f.submitted && !username.valid">Username is required</mat-error>
