@@ -9,7 +9,7 @@ import { SymbolsService } from '../../shared/services/symbols/symbols.service';
 import { AuthenticationService } from '../../shared/services/authentication/authentication.service';
 import { SymbolLike } from '../../shared/models/symbol-like';
 import { SymbolsLikeService } from '../../shared/services/symbols-like/symbols-like.service';
-
+import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.component';
 @Component({
   selector: 'app-symbols',
   templateUrl: './symbols.component.html',
@@ -149,6 +149,14 @@ export class SymbolsComponent implements OnInit {
           this.symbolsFiltered = this.symbols;
       }
     }
+  }
+
+  openSymbolComments(symbol: Symbol): void {
+    const dialogRef = this.dialog.open(SymbolCommentsComponent, {
+      data: { symbolId: symbol.id },
+      width: '60%',
+      height: '60%',
+    });
   }
 
 }

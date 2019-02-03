@@ -1,4 +1,4 @@
-.modal-container {
+/* .modal-container {
     display:flex;
 }
 
@@ -9,4 +9,17 @@
 
 .tree-panel {
     margin: 5px;
+} */
+
+.full-width {
+    width: 100%;
+}
+
+.comment-box {
+    display:block;
+    width: 100%;
+}
+
+.new-comment-box{
+    padding-top: 5px;
 }

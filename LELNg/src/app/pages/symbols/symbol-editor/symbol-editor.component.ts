@@ -395,18 +395,4 @@ export class SymbolEditorComponent implements OnInit {
       return this.triggerCollection.toArray()[1];
     }
   }
-
-
-  openSymbolComments(): void {
-    const dialogRef = this.dialog.open(SymbolCommentsComponent, {
-      data: { symbolComments: this.symbol.comments },
-      width: '60%',
-      height: '60%',
-  });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-    });
-  }
-
 }

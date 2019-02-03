@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Symbol } from '../../models';
+import { SymbolComment } from "../../models/symbol-comment";
 
 @Injectable()
 export class SymbolsService {
@@ -42,6 +43,14 @@ export class SymbolsService {
     .pipe(
       tap(response => console.log(`symbol ${symbol.id} removed`))
     );
+  }
+
+  getComments(symbolId: number): Observable<SymbolComment[]> {
+    return this.http.get<SymbolComment[]>(`${this.symbolUrl}/${symbolId}/comments`);
+  }
+
+  setComments(comments: SymbolComment[], symbolId: number): Observable<SymbolComment[]> {
+    return this.http.post<SymbolComment[]>(`${this.symbolUrl}/${symbolId}/comments`,comments);
   }
 
 }

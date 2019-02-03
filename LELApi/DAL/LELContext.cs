@@ -37,6 +37,14 @@ namespace LELApi.DAL
             modelBuilder.Entity<SymbolLike>()
             .HasOne(p => p.Symbol)
             .WithMany(b => b.SymbolLikes);
+
+            modelBuilder.Entity<SymbolComment>()
+            .HasOne(p => p.Symbol)
+            .WithMany(b => b.Comments);
+
+            modelBuilder.Entity<SymbolComment>()
+            .HasOne(p => p.SymbolCommentReply)
+            .WithMany(b => b.SymbolComments);
         }
     }
 }

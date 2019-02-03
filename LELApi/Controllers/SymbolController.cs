@@ -30,6 +30,47 @@ namespace LELApi.Controllers
             }
             return new ObjectResult(entity);
         }
+
+                [HttpGet("api/[controller]/{id}/comments")]
+        public IActionResult GetComments(long id)
+        {
+            var entity = _context.Set<Symbol>()
+                .Include(symbol => symbol.Comments)
+                .ThenInclude(comment => comment.SymbolComments)
+                .ThenInclude(comment => comment.User)
+                .FirstOrDefault(t => t.Id.Equals(id));
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(entity.Comments);
+        }
+
+        [HttpPost("api/[controller]/{id}/comments")]
+        public IActionResult SetComments([FromRoute] long id, [FromBody] List<SymbolComment> comments)
+        {
+            foreach (var comment in comments)
+            {
+                foreach (var reply in comment.SymbolComments)
+                {
+                    if (reply.Id == 0)
+                    {
+                        reply.SymbolCommentId = comment.Id;      
+                    }                    
+                }                
+            }
+            _context.Set<SymbolComment>().UpdateRange(comments);
+            _context.SaveChanges();
+            return Ok(_context.Symbol.First(sym => sym.Id.Equals(id)).Comments);
+            // if (id == 0)
+            //     return NotFound();            
+            // var symbol = _context.Symbol.First(sym => sym.Id.Equals(id));            
+            // symbol.Comments = comments;
+            // _context.Set<SymbolComment>().RemoveRange(symbol.Comments.Where(comment => !comments.Any(x => x.Id == comment.Id)));
+            // _context.SaveChanges();
+            // return Ok(symbol.Comments);
+        }
+
         public override void MapOnCreate(Symbol entity)
         {
             // this is necessary because the symbol doesn't have an id yet.

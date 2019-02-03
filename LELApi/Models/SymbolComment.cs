@@ -10,7 +10,7 @@ namespace LELApi.Models
     {
         public long Id { get; set; }
 
-        public long SymbolId { get; set;}
+        public long? SymbolId { get; set; }
 
         public virtual Symbol Symbol { get; set; }
 
@@ -23,6 +23,13 @@ namespace LELApi.Models
         public long? SymbolCommentId { get; set; }
 
         public virtual SymbolComment SymbolCommentReply { get; set; }
+
+        public virtual List<SymbolComment> SymbolComments{ get; set; }
+
+        public SymbolComment()
+        {
+            this.SymbolComments = new List<SymbolComment>();
+        }
 
     }
 }

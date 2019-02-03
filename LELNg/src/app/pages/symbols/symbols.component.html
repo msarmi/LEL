@@ -43,6 +43,9 @@
                 <button mat-icon-button mat-primary color="primary" matTooltip="Delete" (click)="removeSymbol(symbol)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                 </button>
+                <button mat-icon-button mat-primary color="primary" matTooltip="Comment" (click)="openSymbolComments(symbol)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-comment"></mat-icon>
+                </button>
                 <button *ngIf="symbolHasLike(symbol)" mat-raised-button mat-icon-button mat-primary color="primary" matTooltip="Like" (click)="like(symbol)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-thumbs-up"></mat-icon>
                     <span color="warn">{{ symbol.likes }}</span>

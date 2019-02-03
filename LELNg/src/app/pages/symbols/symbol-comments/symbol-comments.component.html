@@ -1,39 +1,35 @@
-<mat-dialog-content class="modal-container">
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree-panel">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <button mat-icon-button mat-primary color="primary" matTooltip="Delete comment" (click)="removeComment(comment)">
-      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
-    </button>
-                  {{node.comment}}
-    <button mat-icon-button mat-primary color="primary" matTooltip="Reply" (click)="addNewItem(node)">
-      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
-    </button>
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <mat-form-field>
-      <input matInput #itemValue placeholder="New comment...">
-    </mat-form-field>
-    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle
-            [attr.aria-label]="'toggle ' + node.comment">
-      <mat-icon class="mat-icon-rtl-mirror">
-        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-      </mat-icon>
-    </button>
-    <button mat-icon-button mat-primary color="primary" matTooltip="Delete comment" (click)="removeComment(comment)">
-      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
-    </button>
-                  {{node.comment}}
-    <button mat-icon-button mat-primary color="primary" matTooltip="Reply" (click)="addNewItem(node)">
-      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-reply"></mat-icon>
-    </button>
-  </mat-tree-node>
-
-</mat-tree>
+<mat-dialog-content>
+  <div class="full-width">
+      <mat-accordion *ngIf="comments" class="comment-box">
+          <mat-expansion-panel [expanded]="step === i" *ngFor="let comment of comments; let i = index" (opened)="setStep(i)"
+            hideToggle>
+            <mat-expansion-panel-header>
+              <strong>{{comment.user.name}}:&nbsp; </strong>{{comment.content}}
+            </mat-expansion-panel-header>
+            <mat-list >
+              <mat-list-item *ngFor="let reply of comment.symbolComments"> 
+                  <a mat-icon-button mat-primary *ngIf="reply.userId === currentUserId" color="primary" (click)="removeReply(comment, reply)">
+                      <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                  </a>
+                  <strong>{{comment.user.name}}:&nbsp; </strong>{{reply.content}} 
+              </mat-list-item>
+            </mat-list>
+            <mat-form-field class="full-width" *ngIf="step === i" >
+              <input matInput placeholder="Reply" name="reply" #replyInput (keyup.enter)="reply(comment)" [(ngModel)]="currentReply">
+            </mat-form-field>
+            <mat-action-row *ngIf="comment.userId === currentUserId || comments.length > 1">
+                <a mat-icon-button mat-primary color="primary" *ngIf="comment.userId === currentUserId" (click)="remove(comment)">
+                    <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                </a>
+                <button mat-button color="warn" *ngIf="i !== 0" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" *ngIf="i !== comments.length -1" (click)="nextStep()">Next</button>
+              </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+  </div>
+  <div class="new-comment-box">
+      <mat-form-field class="full-width">
+          <input matInput placeholder="New Comment" name="newComm" (keyup.enter)="newComment()" [(ngModel)]="currentContent">
+      </mat-form-field>
+  </div>
 </mat-dialog-content>
