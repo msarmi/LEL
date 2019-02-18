@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LELApi.Models
 {
+    [Table("symbolcomment")]
     public class SymbolComment : IEntity<long>
     {
         public long Id { get; set; }

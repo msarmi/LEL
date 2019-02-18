@@ -9,3 +9,4 @@ export * from './symbol';
 export * from './synonym';
 export * from './user';
 export * from './register-user';
+export * from './merge-symbols-data';

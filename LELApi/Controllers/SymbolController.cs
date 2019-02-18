@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using LELApi.DAL;
 using LELApi.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Text.RegularExpressions;
 namespace LELApi.Controllers
 {
     public class SymbolController : GenericApiController<Symbol, long>
@@ -31,13 +31,15 @@ namespace LELApi.Controllers
             return new ObjectResult(entity);
         }
 
-                [HttpGet("api/[controller]/{id}/comments")]
+        [HttpGet("api/[controller]/{id}/comments")]
         public IActionResult GetComments(long id)
         {
-            var entity = _context.Set<Symbol>()
+           var entity = _context.Set<Symbol>()
                 .Include(symbol => symbol.Comments)
-                .ThenInclude(comment => comment.SymbolComments)
-                .ThenInclude(comment => comment.User)
+                    .ThenInclude(comment => comment.User)
+                .Include(symbol => symbol.Comments)
+                    .ThenInclude(comment => comment.SymbolComments)
+                        .ThenInclude(comment => comment.User)
                 .FirstOrDefault(t => t.Id.Equals(id));
             if (entity == null)
             {
@@ -140,6 +142,153 @@ namespace LELApi.Controllers
                 }
             }
             return symbolDb;
+        }
+
+        [HttpPost("api/[controller]/merge")]
+        public IActionResult Merge([FromBody] MergeSymbolsData mergeSymbolsData)
+        {
+            var symbol1 = _context.Set<Symbol>()
+                .Include(sym => sym.Synonyms)
+                .Include(sym => sym.BehaviouralResponses)
+                .Include(sym => sym.Notions)
+                .Include(sym => sym.Comments)
+                .Include(sym => sym.SymbolLikes)
+                .FirstOrDefault(s => s.Id == mergeSymbolsData.Symbol1Id);
+            var symbol2 = _context.Set<Symbol>()
+                .Include(sym => sym.Synonyms)
+                .Include(sym => sym.BehaviouralResponses)
+                .Include(sym => sym.Notions)
+                .Include(sym => sym.Comments)
+                .Include(sym => sym.SymbolLikes)
+                .FirstOrDefault(s => s.Id == mergeSymbolsData.Symbol2Id);
+            var newMergedSymbol = new Symbol();
+            newMergedSymbol.Name = mergeSymbolsData.Name;
+            newMergedSymbol.Category = symbol1.Category;                        
+            newMergedSymbol.LELProjectId = symbol1.LELProjectId;
+            foreach (var bh in symbol1.BehaviouralResponses)
+            {
+                BehaviouralResponse newBh = new BehaviouralResponse();
+                newBh.AuthorId = bh.AuthorId;
+                newBh.Expression = bh.Expression;
+                newBh.Symbol = newMergedSymbol;
+                newMergedSymbol.BehaviouralResponses.Add(newBh);
+            }
+            foreach (var bh in symbol2.BehaviouralResponses)
+            {
+                if (!newMergedSymbol.BehaviouralResponses.Any(b => bh.Expression == b.Expression))
+                {
+                    BehaviouralResponse newBh = new BehaviouralResponse();
+                    newBh.AuthorId = bh.AuthorId;
+                    newBh.Expression = bh.Expression;
+                    newBh.Symbol = newMergedSymbol;
+                    newMergedSymbol.BehaviouralResponses.Add(newBh);                    
+                }
+               
+            }
+            foreach (var comment in symbol1.Comments.Where(c => c.SymbolId > 0))
+            {
+                SymbolComment newComment = new SymbolComment();
+                newComment.UserId = comment.UserId;
+                newComment.Content = comment.Content;                
+                newComment.Symbol = newMergedSymbol;
+                foreach (var reply in symbol1.Comments.Where(c => c.SymbolCommentId == comment.Id))
+                {
+                    SymbolComment newReply = new SymbolComment();
+                    newReply.UserId = reply.UserId;
+                    newReply.Content = reply.Content;
+                    newReply.SymbolCommentReply = reply.SymbolCommentReply;
+                    newReply.SymbolComments.Add(newReply);
+                }
+                newMergedSymbol.Comments.Add(newComment);
+            }
+            foreach (var comment in symbol2.Comments.Where(c => c.SymbolId > 0))
+            {
+                if (!newMergedSymbol.Comments.Any(c => c.Content == comment.Content))
+                {
+                    SymbolComment newComment = new SymbolComment();
+                    newComment.UserId = comment.UserId;
+                    newComment.Content = comment.Content;                
+                    newComment.Symbol = newMergedSymbol;
+                    foreach (var reply in symbol2.Comments.Where(c => c.SymbolCommentId == comment.Id))
+                    {
+                        SymbolComment newReply = new SymbolComment();
+                        newReply.UserId = reply.UserId;
+                        newReply.Content = reply.Content;
+                        newReply.SymbolCommentReply = reply.SymbolCommentReply;
+                        newReply.SymbolComments.Add(newReply);
+                    }
+                    newMergedSymbol.Comments.Add(newComment);   
+                }                
+            }
+            foreach (var notion in symbol1.Notions)
+            {
+                Notion newNotion = new Notion();
+                newNotion.AuthorId = notion.AuthorId;
+                newNotion.Symbol = newMergedSymbol;
+                newNotion.Expression = notion.Expression;
+                newMergedSymbol.Notions.Add(newNotion);
+            }
+            foreach (var notion in symbol2.Notions)
+            {
+                if (!newMergedSymbol.Notions.Any(n => n.Expression == notion.Expression))
+                {
+                    Notion newNotion = new Notion();
+                    newNotion.AuthorId = notion.AuthorId;
+                    newNotion.Symbol = newMergedSymbol;
+                    newNotion.Expression = notion.Expression;
+                    newMergedSymbol.Notions.Add(newNotion);   
+                }                
+            }
+            
+            foreach (var symbolLike in symbol1.SymbolLikes)
+            {
+                SymbolLike newLike = new SymbolLike();                
+                newLike.AuthorId = symbolLike.AuthorId;
+                newLike.IsLike = symbolLike.IsLike;
+                newLike.Symbol = newMergedSymbol;
+                newMergedSymbol.SymbolLikes.Add(newLike);
+            }
+            foreach (var symbolLike in symbol2.SymbolLikes)
+            {
+                if (!newMergedSymbol.SymbolLikes.Any(sl => sl.AuthorId == symbolLike.AuthorId))
+                {
+                    SymbolLike newLike = new SymbolLike();                    
+                    newLike.AuthorId = symbolLike.AuthorId;
+                    newLike.IsLike = symbolLike.IsLike;
+                    newLike.Symbol = newMergedSymbol;
+                    newMergedSymbol.SymbolLikes.Add(newLike);   
+                }                
+            }            
+            _context.Symbol.Remove(symbol1);
+            _context.Symbol.Remove(symbol2);
+            _context.Symbol.Add(newMergedSymbol);
+            _context.SaveChanges();
+            string pattern1 = "({.*?"+ mergeSymbolsData.Symbol1Id.ToString() +".*?})";
+            string pattern2 = "({.*?"+ mergeSymbolsData.Symbol2Id.ToString() +".*?})";
+            foreach (var notion in _context.Notion)
+            {
+                if (Regex.IsMatch(notion.Expression,pattern1))
+                {
+                    notion.Expression.Replace(mergeSymbolsData.Symbol1Id.ToString(), newMergedSymbol.Id.ToString());
+                }
+                if (Regex.IsMatch(notion.Expression,pattern2))
+                {
+                    notion.Expression.Replace(mergeSymbolsData.Symbol2Id.ToString(), newMergedSymbol.Id.ToString());
+                }
+            }
+            foreach (var behaviouralResponse in _context.BehaviouralResponse)
+            {
+                if (Regex.IsMatch(behaviouralResponse.Expression,pattern1))
+                {
+                    behaviouralResponse.Expression.Replace(mergeSymbolsData.Symbol1Id.ToString(), newMergedSymbol.Id.ToString());
+                }
+                if (Regex.IsMatch(behaviouralResponse.Expression,pattern2))
+                {
+                    behaviouralResponse.Expression.Replace(mergeSymbolsData.Symbol2Id.ToString(), newMergedSymbol.Id.ToString());
+                }
+            }
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }

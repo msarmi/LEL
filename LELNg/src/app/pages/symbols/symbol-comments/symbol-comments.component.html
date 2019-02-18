@@ -4,21 +4,21 @@
           <mat-expansion-panel [expanded]="step === i" *ngFor="let comment of comments; let i = index" (opened)="setStep(i)"
             hideToggle>
             <mat-expansion-panel-header>
-              <strong>{{comment.user.name}}:&nbsp; </strong>{{comment.content}}
+              <strong>{{comment.user.userName}}:&nbsp; </strong>{{comment.content}}
             </mat-expansion-panel-header>
             <mat-list >
               <mat-list-item *ngFor="let reply of comment.symbolComments"> 
-                  <a mat-icon-button mat-primary *ngIf="reply.userId === currentUserId" color="primary" (click)="removeReply(comment, reply)">
+                  <a mat-icon-button mat-primary *ngIf="reply.userId === currentUser.id" color="primary" (click)="removeReply(comment, reply)">
                       <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                   </a>
-                  <strong>{{comment.user.name}}:&nbsp; </strong>{{reply.content}} 
+                  <strong>{{comment.user.userName}}:&nbsp; </strong>{{reply.content}} 
               </mat-list-item>
             </mat-list>
             <mat-form-field class="full-width" *ngIf="step === i" >
               <input matInput placeholder="Reply" name="reply" #replyInput (keyup.enter)="reply(comment)" [(ngModel)]="currentReply">
             </mat-form-field>
-            <mat-action-row *ngIf="comment.userId === currentUserId || comments.length > 1">
-                <a mat-icon-button mat-primary color="primary" *ngIf="comment.userId === currentUserId" (click)="remove(comment)">
+            <mat-action-row *ngIf="comment.userId === currentUser.id || comments.length > 1">
+                <a mat-icon-button mat-primary color="primary" *ngIf="comment.userId === currentUser.id" (click)="remove(comment)">
                     <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                 </a>
                 <button mat-button color="warn" *ngIf="i !== 0" (click)="prevStep()">Previous</button>

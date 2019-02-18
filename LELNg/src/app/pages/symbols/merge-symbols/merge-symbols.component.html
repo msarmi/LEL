@@ -1,0 +1,33 @@
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-title>
+      Merge
+    </mat-card-title>
+    <mat-card-content>
+      <form>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" name="name" required [(ngModel)]="name">
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="symbols">
+          <mat-select placeholder="Symbol 1" [(ngModel)]="selectedSymbol1" name="symbol1">
+            <mat-option *ngFor="let symbol of symbols" [value]="symbol">
+              {{symbol.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="symbols" >
+          <mat-select placeholder="Symbol 2"  [(ngModel)]="selectedSymbol2" name="symbol2">
+            <mat-option *ngFor="let symbol of symbols" [disabled]="selectedSymbol1.category !== symbol.category || selectedSymbol1.id === symbol.id"
+              [value]="symbol">
+              {{symbol.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button mat-primary color="primary" (click)="merge()">Ok</button>
+      <button mat-button mat-primary color="primary" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</mat-dialog-content>

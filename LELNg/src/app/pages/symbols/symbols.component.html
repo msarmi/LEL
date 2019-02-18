@@ -23,6 +23,9 @@
 </mat-accordion>
 <mat-toolbar class="symbol-toolbar">
     <span class="spacer"></span>
+    <button mat-fab color="primary" matTooltip="Merge two symbols" (click)="openSymbolMerge()">
+        <mat-icon aria-hidden="true" fontSet="fa" class="auto-height" mat-fab fontIcon="fa-compress"></mat-icon>
+    </button>
     <button mat-fab color="primary" matTooltip="Add a new symbol" (click)="openSymbolEditor()">
         <mat-icon aria-hidden="true" fontSet="fa" class="auto-height" mat-fab fontIcon="fa-plus"></mat-icon>
     </button>

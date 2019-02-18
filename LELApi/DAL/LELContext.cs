@@ -25,9 +25,11 @@ namespace LELApi.DAL
         public DbSet<Symbol> Symbol { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Synonym> Synonym { get; set; }
-        public DbSet<Comment> Comment { get; set; }
+        //public DbSet<SymbolComment> Comment { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<SymbolLike> SymbolLike { get; set; }
+        public DbSet<Notion> Notion { get; set;}
+        public DbSet<BehaviouralResponse> BehaviouralResponse { get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

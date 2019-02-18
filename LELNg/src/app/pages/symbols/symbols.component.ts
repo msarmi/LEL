@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../shared/services/authentication/auth
 import { SymbolLike } from '../../shared/models/symbol-like';
 import { SymbolsLikeService } from '../../shared/services/symbols-like/symbols-like.service';
 import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.component';
+import { MergeSymbolsComponent } from './merge-symbols/merge-symbols.component';
 @Component({
   selector: 'app-symbols',
   templateUrl: './symbols.component.html',
@@ -156,6 +157,13 @@ export class SymbolsComponent implements OnInit {
       data: { symbolId: symbol.id },
       width: '60%',
       height: '60%',
+    });
+  }
+
+  openSymbolMerge(): void {
+    const dialogRef = this.dialog.open(MergeSymbolsComponent, {      
+      width: '35%',
+      height: '40%',
     });
   }
 

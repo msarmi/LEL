@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedSymbolEditorComponent } from './related-symbol-editor/related-symbol-editor.component';
 import { SymbolCommentsComponent } from './symbol-comments/symbol-comments.component';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
+import { MergeSymbolsComponent } from './merge-symbols/merge-symbols.component';
 
 @NgModule({
   imports: [
@@ -20,9 +21,9 @@ import { AlertComponent } from '../../shared/components/alert/alert.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
-  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent],
-  entryComponents: [SymbolCommentsComponent, AlertComponent]
+  declarations: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent, MergeSymbolsComponent],
+  exports: [SymbolsComponent, SymbolEditorComponent, SymbolModalComponent, RelatedSymbolEditorComponent, SymbolCommentsComponent, MergeSymbolsComponent],
+  entryComponents: [SymbolCommentsComponent, AlertComponent, MergeSymbolsComponent]
 
 })
 export class SymbolsModule { }

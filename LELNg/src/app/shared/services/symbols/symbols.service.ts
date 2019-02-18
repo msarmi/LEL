@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Symbol } from '../../models';
+import { Symbol, MergeSymbolsData } from '../../models';
 import { SymbolComment } from "../../models/symbol-comment";
 
 @Injectable()
@@ -51,6 +51,10 @@ export class SymbolsService {
 
   setComments(comments: SymbolComment[], symbolId: number): Observable<SymbolComment[]> {
     return this.http.post<SymbolComment[]>(`${this.symbolUrl}/${symbolId}/comments`,comments);
+  }
+
+  merge(mergeSymbols: MergeSymbolsData): Observable<Symbol> {
+    return this.http.post<Symbol>(`${this.symbolUrl}/merge`,mergeSymbols);
   }
 
 }

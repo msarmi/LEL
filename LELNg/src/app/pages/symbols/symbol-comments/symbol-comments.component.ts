@@ -8,6 +8,7 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
 import { UsersService } from '../../../shared/services/users/users.service';
 import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
 import { SymbolsService } from '../../../shared/services/symbols/symbols.service';
+import { User } from '../../../shared/models';
 @Component({
   selector: 'app-symbol-comments',
   templateUrl: './symbol-comments.component.html',
@@ -23,7 +24,7 @@ export class SymbolCommentsComponent implements OnInit {
   comments: SymbolComment[];
   step = -1;
   currentReply: string;
-  currentUserId: number;
+  currentUser: User;
   constructor(
     public dialogRef: MatDialogRef<SymbolCommentsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -37,7 +38,7 @@ export class SymbolCommentsComponent implements OnInit {
     this.symbolId = this.data.symbolId;
     // this.commentService.getComments(this.data.symbolId).subscribe(result => this.comments = result);
     this.symbolsService.getComments(this.data.symbolId).subscribe(result => this.comments = result);
-    this.currentUserId = this.authenticationService.getUser().id;
+    this.currentUser = this.authenticationService.getUser();
   }
 
   setStep(index: number) {
@@ -84,8 +85,9 @@ export class SymbolCommentsComponent implements OnInit {
     if (this.currentReply) {
       const reply = new SymbolComment();
       reply.content = this.currentReply;
-      // reply.symbolCommentReply = comment;      
-      reply.userId = this.currentUserId;
+      // reply.symbolCommentReply = comment;
+      reply.user = this.currentUser;      
+      reply.userId = this.currentUser.id;
       //reply.symbolId = this.symbolId;
       if (!comment.symbolComments) {
         comment.symbolComments = new Array<SymbolComment>();
@@ -105,7 +107,8 @@ export class SymbolCommentsComponent implements OnInit {
     if (this.currentContent) {
       const comment = new SymbolComment();
       comment.content = this.currentContent;
-      comment.userId = this.currentUserId;
+      comment.user = this.currentUser;
+      comment.userId = this.currentUser.id;
       comment.symbolId = this.symbolId;
       if (!this.comments) {
         this.comments = new Array<SymbolComment>();
