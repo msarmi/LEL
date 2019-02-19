@@ -90,7 +90,7 @@ namespace LELApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("api/[controller]")]
         public IActionResult GetAll()
         {
             var users = _userService.GetAll();
