@@ -47,7 +47,7 @@ export class SymbolsComponent implements OnInit {
       data: { symbolId: symbolId },
       width: '80%',
       height: '80%',
-  });
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -69,7 +69,7 @@ export class SymbolsComponent implements OnInit {
 
   removeSymbol(symbol: Symbol): void {
     const dialogRef = this.dialog.open(AlertComponent, {
-    data: { message: `Are you sure you want to delete ${symbol.name} ?`  }
+      data: { message: `Are you sure you want to delete ${symbol.name} ?` }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -133,7 +133,7 @@ export class SymbolsComponent implements OnInit {
       for (let like of symbol.symbolLikes.filter(value => !value.isLike)) {
         if (like.authorId === this.authenticationService.getUser().id) { return true; }
       }
-     }
+    }
     return false;
   }
 
@@ -147,7 +147,7 @@ export class SymbolsComponent implements OnInit {
       if (this.symbolFilter.category >= 0) {
         this.symbolsFiltered = this.symbols.filter((aSymbol: Symbol) => aSymbol.category === this.symbolFilter.category);
       } else {
-          this.symbolsFiltered = this.symbols;
+        this.symbolsFiltered = this.symbols;
       }
     }
   }
@@ -161,10 +161,21 @@ export class SymbolsComponent implements OnInit {
   }
 
   openSymbolMerge(): void {
-    const dialogRef = this.dialog.open(MergeSymbolsComponent, {      
+    const dialogRef = this.dialog.open(MergeSymbolsComponent, {
       width: '35%',
       height: '40%',
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.lelProjectsService.getLelProjectSymbols(+id).subscribe(
+          (result) => {
+            this.symbols = result;
+            this.symbolsFiltered = result;
+          });
+      }
+    });
+
   }
 
 }

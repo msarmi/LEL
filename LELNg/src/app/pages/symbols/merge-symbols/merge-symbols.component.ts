@@ -4,6 +4,7 @@ import { Symbol, MergeSymbolsData } from '../../../shared/models';
 import { Router } from '@angular/router';
 import { SymbolsService } from '../../../shared/services/symbols/symbols.service';
 import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
+import { MatDialogRef } from '../../../../../node_modules/@angular/material';
 
 @Component({
   selector: 'app-merge-symbols',
@@ -19,6 +20,7 @@ export class MergeSymbolsComponent implements OnInit {
   symbols: Symbol[];  
   symbolsCombo2: Symbol[];
   constructor(
+    public dialogRef: MatDialogRef<MergeSymbolsComponent>,
     private router: Router,
     private lelProjectsService: LelProjectsService,
     private symbolsService: SymbolsService,
@@ -32,8 +34,13 @@ export class MergeSymbolsComponent implements OnInit {
     );
   }
 
+  close(): void {
+    this.dialogRef.close();
+  }
+
   merge(): void {
     const mergeSymbols = new MergeSymbolsData(this.selectedSymbol1.id, this.selectedSymbol2.id, this.name, this.authenticationService.getUser().id);
-    this.symbolsService.merge(mergeSymbols).subscribe(result => result);
+    this.symbolsService.merge(mergeSymbols).subscribe(() => this.dialogRef.close());
+
   }
 }
