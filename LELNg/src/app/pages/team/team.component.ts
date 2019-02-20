@@ -25,7 +25,7 @@ export class TeamComponent implements OnInit {
       });
   }
 
-  invite(){
+  invite() {
 
   }
 

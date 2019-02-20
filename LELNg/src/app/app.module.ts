@@ -15,6 +15,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './shared/interceptors/custom-http-interceptor';
 import { RouterModule } from '@angular/router';
+import { UsersService } from './shared/services/users/users.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { RouterModule } from '@angular/router';
   ],
   entryComponents: [LelEditorComponent],
   providers: [
-    LelProjectsService, MatIconRegistry, SymbolsService, AuthGuard,
+    LelProjectsService, UsersService, MatIconRegistry, SymbolsService, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,

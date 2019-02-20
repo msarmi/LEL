@@ -33,4 +33,9 @@ export class UsersService {
     );
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.userUrl);
+  }
+
+
 }

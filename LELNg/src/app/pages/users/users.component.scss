@@ -1,0 +1,31 @@
+.flex-container {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .auto-height {
+    height: auto;
+  }
+
+  .user-card {    
+    margin: 10px;
+  }
+
+  .user-header-image {
+    background-image: url('../../shared/avatares/user.png');
+    background-size: cover;
+  }
+  
+  .spacer {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+  }  
+
+  .mat-card-avatar {
+    height: 40px;
+    width: 65px;
+    border-radius: 0%;
+    flex-shrink: 0;
+}

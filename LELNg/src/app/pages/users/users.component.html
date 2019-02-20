@@ -1,4 +1,13 @@
-<p>
-    users works!
-  </p>
-  
+<div class="flex-container">
+  <div *ngFor="let aUser of users; index as i">
+          <mat-card class="user-card mat-elevation-z8">
+          <mat-card-content>
+              <mat-card-header>
+                  <div mat-card-avatar class="user-header-image"></div>
+                  <mat-card-title>{{aUser.userName}}</mat-card-title>
+              </mat-card-header>
+          </mat-card-content>
+
+      </mat-card>        
+  </div>
+</div>
