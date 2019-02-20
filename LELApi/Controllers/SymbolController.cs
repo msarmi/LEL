@@ -152,6 +152,7 @@ namespace LELApi.Controllers
                 .Include(sym => sym.BehaviouralResponses)
                 .Include(sym => sym.Notions)
                 .Include(sym => sym.Comments)
+                    .ThenInclude(comment => comment.SymbolComments)
                 .Include(sym => sym.SymbolLikes)
                 .FirstOrDefault(s => s.Id == mergeSymbolsData.Symbol1Id);
             var symbol2 = _context.Set<Symbol>()
@@ -159,12 +160,14 @@ namespace LELApi.Controllers
                 .Include(sym => sym.BehaviouralResponses)
                 .Include(sym => sym.Notions)
                 .Include(sym => sym.Comments)
+                    .ThenInclude(comment => comment.SymbolComments)
                 .Include(sym => sym.SymbolLikes)
                 .FirstOrDefault(s => s.Id == mergeSymbolsData.Symbol2Id);
             var newMergedSymbol = new Symbol();
             newMergedSymbol.Name = mergeSymbolsData.Name;
             newMergedSymbol.Category = symbol1.Category;                        
             newMergedSymbol.LELProjectId = symbol1.LELProjectId;
+            newMergedSymbol.AuthorId = mergeSymbolsData.AuthorId;
             foreach (var bh in symbol1.BehaviouralResponses)
             {
                 BehaviouralResponse newBh = new BehaviouralResponse();
@@ -258,7 +261,26 @@ namespace LELApi.Controllers
                     newLike.Symbol = newMergedSymbol;
                     newMergedSymbol.SymbolLikes.Add(newLike);   
                 }                
-            }            
+            } 
+
+            foreach (var synonym in symbol1.Synonyms)
+            {
+                Synonym syn = new Synonym();                
+                syn.Name = syn.Name;
+                syn.Symbol = synonym.Symbol;
+                newMergedSymbol.Synonyms.Add(syn);
+            }
+            foreach (var synonym in symbol2.Synonyms)
+            {
+                if (!newMergedSymbol.Synonyms.Any(sl => sl.Name == synonym.Name))
+                {
+                    Synonym syn = new Synonym();                
+                    syn.Name = syn.Name;
+                    syn.Symbol = synonym.Symbol;
+                    newMergedSymbol.Synonyms.Add(syn);
+                }                
+            } 
+
             _context.Symbol.Remove(symbol1);
             _context.Symbol.Remove(symbol2);
             _context.Symbol.Add(newMergedSymbol);

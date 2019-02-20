@@ -11,7 +11,7 @@
                   <a mat-icon-button mat-primary *ngIf="reply.userId === currentUser.id" color="primary" (click)="removeReply(comment, reply)">
                       <mat-icon aria-hidden="true" fontSet="fa" fontIcon="fa-trash"></mat-icon>
                   </a>
-                  <strong>{{comment.user.userName}}:&nbsp; </strong>{{reply.content}} 
+                  <strong>{{reply.user.userName}}:&nbsp; </strong>{{reply.content}} 
               </mat-list-item>
             </mat-list>
             <mat-form-field class="full-width" *ngIf="step === i" >

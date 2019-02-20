@@ -1,7 +1,7 @@
 import { Symbol } from './index';
 
 export class Synonym {
-    id: number;
+    id: number;    
     name: string;
     description: string;
     symbolId: number;
