@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from '../shared/modules/material.module';
 import { TeamComponent } from './team/team.component';
+import { TeamInviteModalComponent } from './team/team-invite-modal/team-invite-modal.component';
+import { TeamModule } from './team/team.module';
+import { UsersService } from '../shared/services/users/users.service';
 
 @NgModule({
   imports: [
@@ -21,12 +24,13 @@ import { TeamComponent } from './team/team.component';
     LelProjectsModule,
     SharedModule,
     UsersModule,
+    TeamModule,
     MaterialModule,
     FormsModule,
     RouterModule
   ],
   declarations: [LoginComponent, RegisterComponent, TeamComponent],
-  providers: []
+  providers: [UsersService]
 })
 export class PagesModule { }
 

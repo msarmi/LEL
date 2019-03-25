@@ -14,7 +14,7 @@ export class UserEditorComponent implements OnInit {
   user: User;
   userId: number;
   repeatPassword: string;
- 
+
   constructor(
     private authenticationService: AuthenticationService,
     public dialogRef: MatDialogRef<UserEditorComponent>) { }
@@ -28,5 +28,5 @@ export class UserEditorComponent implements OnInit {
     this.authenticationService.update(this.user).subscribe(response => this.user = response);
     this.dialogRef.close();
   }
-    
+
 }
